@@ -1,0 +1,52 @@
+@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "GridView_preguntas";
+        settings.CallbackRouteValues = new { Controller = "Formulario_pregunta", Action = "GridViewPartial_preguntas" ,  IdFormulario=ViewBag.IdFormulario  };
+        settings.Width = Unit.Percentage(100);
+        settings.KeyFieldName = "IdPregunta";
+        settings.SettingsPager.PageSize = 10;
+        settings.CommandColumn.Visible = false;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 500;
+
+        settings.Columns.Add(c =>
+        {
+            c.Caption = "#";
+            c.SetDataItemTemplateContent(tc =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink("Modificar", "Modificar", new { IdPregunta = DataBinder.Eval(tc.DataItem, "IdPregunta"), IdFormulario = DataBinder.Eval(tc.DataItem, "IdFormulario") }) + "&nbsp;" +
+                    Html.ActionLink("Anular", "Anular", new { IdPregunta = DataBinder.Eval(tc.DataItem, "IdPregunta"), IdFormulario = DataBinder.Eval(tc.DataItem, "IdFormulario") },
+                        new { onclick = "return confirm('¿Está seguro de que desea anular el registro?')" })
+                );
+            });
+            c.SetHeaderTemplateContent(tc =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink("Nuevo", "Nuevo", new { IdFormulario = ViewBag.IdFormulario})
+                );
+            });
+            c.Settings.AllowDragDrop = DefaultBoolean.False;
+            c.Settings.AllowSort = DefaultBoolean.False;
+            c.Width = 70;
+        });
+        settings.Columns.Add("IdPregunta").Width = Unit.Percentage(10);
+        settings.Columns.Add("IdFormulario").Visible = false;
+        settings.Columns.Add("ep_descripcion").Width = Unit.Percentage(70);
+        settings.Columns.Add("ep_ponderacion").Width = Unit.Percentage(20);
+        settings.Settings.ShowFooter = true;
+        settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ep_ponderacion").DisplayFormat = "";
+
+    });
+
+
+}
+@grid.Bind(Model).GetHtml()

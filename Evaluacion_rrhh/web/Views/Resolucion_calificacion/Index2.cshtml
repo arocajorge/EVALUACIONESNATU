@@ -1,0 +1,107 @@
+﻿@model Info.reportes.tbl_reporte002_Info
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+
+    function OnBeginCallback(s, e) {
+        e.customArgs = MVCxClientUtils.GetSerializedEditorValuesInContainer("FormFiltro");
+    }
+</script>
+@using (Html.BeginForm("Index2", "Resolucion_calificacion", FormMethod.Post))
+{
+    @Html.DevExpress().FormLayout(settings =>
+{
+
+    settings.Name = "FormFiltro";
+    settings.Width = Unit.Percentage(100);
+    settings.EncodeHtml = false;
+    settings.UseDefaultPaddings = true;
+
+    settings.Items.AddGroupItem(group =>
+    {
+        group.RowSpan = 2;
+        group.ColCount = 3;
+        group.Name = "Filtros";
+        group.Caption = "Filtros";
+
+
+        group.Items.Add(m => m.IdPeriodo, i =>
+        {
+            i.NestedExtension().ComboBox(c =>
+            {
+                c.Width = Unit.Percentage(100);
+                c.Properties.DataSource = ViewBag.lista_periodos;
+                c.Properties.TextField = "pe_observacion";
+                c.Properties.ValueField = "IdPeriodo";
+                c.Properties.Columns.Add("pe_observacion", "Periodo");
+                c.Properties.Columns.Add("pe_fecha_ini", "Fecha inicio");
+                c.Properties.Columns.Add("pe_fecha_fin", "Fecha fin");
+                c.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
+                c.Properties.NullText = "Seleccione periodo";
+            });
+        });
+
+        group.Items.Add(m => m.Idempleado_evaluado, i =>
+        {
+            i.NestedExtension().ComboBox(c =>
+            {
+                c.Width = Unit.Percentage(100);
+                c.Properties.DataSource = ViewBag.lista_empleados;
+                c.Properties.TextField = "NombreCompleato";
+                c.Properties.ValueField = "IdEmpleado";
+                c.Properties.Columns.Add("re_codigo", "Codigo");
+                c.Properties.Columns.Add("re_apellidos", "Apellidos");
+                c.Properties.Columns.Add("re_nombres", "Nombres");
+                c.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
+                c.Properties.NullText = "== Todos ==";
+            });
+        });
+
+        group.Items.Add(m => m.IdEmpleado, i =>
+        {
+            i.NestedExtension().ComboBox(c =>
+            {
+                c.Width = Unit.Percentage(100);
+                c.Properties.DataSource = ViewBag.lista_empleados;
+                c.Properties.TextField = "NombreCompleato";
+                c.Properties.ValueField = "IdEmpleado";
+                c.Properties.Columns.Add("re_codigo", "Codigo");
+                c.Properties.Columns.Add("re_apellidos", "Apellidos");
+                c.Properties.Columns.Add("re_nombres", "Nombres");
+                c.Properties.ClearButton.DisplayMode = ClearButtonDisplayMode.Always;
+                c.Properties.NullText = "== Todos ==";
+            });
+        });
+
+        group.Items.Add(i =>
+        {
+            i.Caption = "";
+            i.Paddings.PaddingTop = 10;
+            i.SetNestedContent(() =>
+            {
+                Html.DevExpress().Button(b =>
+                {
+                    b.Name = "UpdateBtn";
+                    b.Text = "Cargar data";
+                    b.ControlStyle.CssClass = "editFormButton";
+                    b.UseSubmitBehavior = true;
+                }).Render();
+                Html.DevExpress().Button(b =>
+                {
+                    b.Name = "btn_import";
+                    b.Text = "Exportar";
+                    b.Style.Add("margin-left", "4px");
+                    b.ControlStyle.CssClass = "editFormButton";
+                    b.ClientSideEvents.Click = "function(s, e){ document.location='" + DevExpressHelper.GetUrl(new { Controller = "Resolucion_calificacion", Action = "Imprimir_detalle", IdPeriodo = (Model == null ? 0 : Model.IdPeriodo), IdEmpleado = (Model == null ? 0 : Model.IdEmpleado), Idempleado_evaluado = (Model == null ? 0 : Model.Idempleado_evaluado) }) + "'; }";
+                }).Render();
+            });
+        });
+    });
+
+}).GetHtml();
+    
+    @Html.Action("Resolucion_calificacion_detalle", Model)
+}

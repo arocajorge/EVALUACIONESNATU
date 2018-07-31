@@ -1,0 +1,47 @@
+
+<div class="leftPanel">
+    @* DXCOMMENT: Configure the left panel's menu *@
+    @Html.DevExpress().NavBar(settings =>
+{
+    settings.Name = "LeftNavBar";
+    settings.ShowExpandButtons = false;
+
+    settings.AutoCollapse = false;
+    settings.EnableAnimation = true;
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.ControlStyle.Border.BorderWidth = System.Web.UI.WebControls.Unit.Pixel(0);
+    settings.ControlStyle.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(0);
+    settings.Groups.Add(group =>
+    {
+        group.Text = "Configuración";
+        group.Items.Add("Periodos").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Periodo_evaluacion", Action = "Index" });
+        group.Items.Add("Cerrar periodo").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Periodo_evaluacion", Action = "Cerrar_periodo_partial" });
+        group.Items.Add("Parametros correo").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Parametros_correo", Action = "Index" });
+        //group.Items.Add("Parametros evaluación").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Parametros_Evaluacion", Action = "Index" });
+        group.Items.Add("Usuarios").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Account", Action = "Index" });
+    });
+    settings.Groups.Add(group =>
+    {
+        group.Text = "Talento Humano";
+        group.Items.Add("Empleados").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Empleado", Action = "Index" });
+        group.Items.Add("Cargar empleados").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Empleado", Action = "Importarempleados" });
+        group.Items.Add("Cargo").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Cargo", Action = "Index" });
+
+    });
+    settings.Groups.Add(group =>
+    {
+        group.Text = "Evaluación del personal";
+        group.Items.Add("Formularios").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Formulario", Action = "Index" });
+        group.Items.Add("Asignacion formulario").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Empleado_x_formulario", Action = "Index" });
+        group.Items.Add("Notificar evaluación").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Empleado_x_correo_x_periodo", Action = "Index" });
+    });
+
+    settings.Groups.Add(group =>
+    {
+        group.Text = "Reportes";
+        group.Items.Add("Calificaciones global").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Resolucion_calificacion", Action = "Index" });
+        group.Items.Add("Calificaciones por formulario").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Resolucion_calificacion", Action = "Index3" });
+        group.Items.Add("Calificaciones por preguta").NavigateUrl = DevExpressHelper.GetUrl(new { Controller = "Resolucion_calificacion", Action = "Index2" });
+    });
+}).GetHtml()
+</div>

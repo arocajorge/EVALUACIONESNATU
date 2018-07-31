@@ -1,0 +1,8 @@
+﻿@model web.Views.Reporte.Evalauacion_Rpt003
+@{
+    ViewBag.Title = "Imprimir";
+}
+@Html.DevExpress().WebDocumentViewer(settings =>
+{
+    settings.Name = "WebDocumentViewer";
+}).Bind(Model).GetHtml()

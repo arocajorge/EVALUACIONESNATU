@@ -1,0 +1,47 @@
+﻿@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView_cargo";
+        settings.CallbackRouteValues = new { Controller = "Cargo", Action = "GetList" };
+        settings.Width = Unit.Percentage(100);
+        settings.KeyFieldName = "IdCargo";
+
+        settings.CommandColumn.Visible = false;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.HideDataCells;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 500;
+
+        settings.Columns.Add(c =>
+        {
+            c.Caption = "#";
+            c.SetDataItemTemplateContent(tc =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink("Modificar", "Modificar", new { IdCargo = DataBinder.Eval(tc.DataItem, "IdCargo") }) + "&nbsp;" +
+                    Html.ActionLink("Anular", "Anular", new { IdCargo = DataBinder.Eval(tc.DataItem, "IdCargo") },
+                        new { onclick = "return confirm('¿Está seguro de que desea anular el registro?')" })
+                );
+            });
+            c.SetHeaderTemplateContent(tc =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink("Nuevo", "Nuevo").ToHtmlString()
+                );
+            });
+            c.Settings.AllowDragDrop = DefaultBoolean.False;
+            c.Settings.AllowSort = DefaultBoolean.False;
+            c.Width = 70;
+        });
+
+        settings.Columns.Add("rc_codigo").Width = Unit.Percentage(20);
+        settings.Columns.Add("rc_descripcion");
+    });
+}
+@grid.Bind(Model).GetHtml()

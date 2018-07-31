@@ -1,0 +1,59 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView_cargo";
+        settings.CallbackRouteValues = new { Controller = "Formulario", Action = "FormularioPartial" };
+        settings.Width = Unit.Percentage(100);
+        settings.KeyFieldName = "IdFormulario";
+
+        settings.CommandColumn.Visible = false;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.HideDataCells;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 500;
+
+        settings.Columns.Add(c =>
+        {
+            c.Caption = "#";
+            c.SetDataItemTemplateContent(tc =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink("Modificar", "Modificar", new { IdFormulario = DataBinder.Eval(tc.DataItem, "IdFormulario") }) + "&nbsp;" +
+                    Html.ActionLink("Anular", "Anular", new { IdFormulario = DataBinder.Eval(tc.DataItem, "IdFormulario") },new { onclick = "return confirm('¿Está seguro de que desea anular el registro?')" })
+                );
+            });
+            c.SetHeaderTemplateContent(tc =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink("Nuevo", "Nuevo").ToHtmlString()
+                );
+            });
+            c.Settings.AllowDragDrop = DefaultBoolean.False;
+            c.Settings.AllowSort = DefaultBoolean.False;
+            c.Width = 70;
+        });
+
+        settings.Columns.Add("ef_codigo");
+        settings.Columns.Add("ef_descripcion");
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "Preguntas";
+            column.SetDataItemTemplateContent(container =>
+            {
+                Html.DevExpress().HyperLink(hyperlink =>
+                {
+                    var keyValue = DataBinder.Eval(container.DataItem, "IdFormulario");
+                    hyperlink.Properties.Text = "Preguntas";
+                    hyperlink.NavigateUrl = Url.Action("Index", "Formulario_pregunta", new { IdFormulario = keyValue });
+                }).Render();
+            });
+        });
+    });
+}
+@grid.Bind(Model).GetHtml()

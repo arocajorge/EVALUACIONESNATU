@@ -1,0 +1,18 @@
+﻿@{ 
+var grid = Html.DevExpress().GridView(settingsGrid =>
+       {
+           settingsGrid.Name = "GridView";
+           settingsGrid.KeyFieldName = "";
+           settingsGrid.SettingsPager.Visible = true;
+           settingsGrid.Settings.ShowGroupPanel = true;
+           settingsGrid.Settings.ShowFilterRow = true;
+           settingsGrid.SettingsBehavior.AllowSelectByRowClick = true;
+           settingsGrid.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+           settingsGrid.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+           settingsGrid.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+           settingsGrid.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+           settingsGrid.SettingsBehavior.AllowSelectByRowClick = true;
+
+       });
+       grid.Bind(Model.listaPreguntas).GetHtml();
+}

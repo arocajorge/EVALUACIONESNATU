@@ -1,0 +1,76 @@
+
+@model Info.general.tbl_periodo_evaluacion_Info
+
+@{
+    ViewBag.Title = "Nuevo";
+}
+
+@if (ViewBag.mensaje != null)
+{
+    <h2>@ViewBag.mensaje</h2>
+}
+
+@using (Html.BeginForm("Cerrar_periodo_partial", "Periodo_evaluacion", FormMethod.Post))
+{
+    
+        @Html.DevExpress().FormLayout(settings =>
+   {
+       settings.Name = "formLayout";
+       settings.EncodeHtml = false;
+       settings.UseDefaultPaddings = true;
+       settings.Width = Unit.Percentage(100);
+
+       var groupItem = settings.Items.AddGroupItem(i =>
+       {
+           i.Caption = "Cerrar periodo";
+           i.SettingsItemHelpTexts.Position = HelpTextPosition.Bottom;
+       });
+
+       groupItem.Items.Add(m => m.IdPeriodo, i =>
+       {
+           i.Caption = "Periodo";
+           i.NestedExtension().ComboBox(s =>
+           {
+               s.Width = Unit.Percentage(100);
+               s.Properties.DataSource = ViewBag.lista_periodos;
+               s.Properties.TextField = "pe_observacion";
+               s.Properties.ValueField = "IdPeriodo";
+               s.Properties.Columns.Add("pe_observacion", "Periodo");
+               s.Properties.Columns.Add("pe_fecha_ini","Fecha inicio");
+               s.Properties.Columns.Add("pe_fecha_fin", "Fecha fin");
+               s.ReadOnly = false;
+           });
+       });
+
+       groupItem.GroupBoxDecoration = GroupBoxDecoration.Box;
+       groupItem.ShowCaption = DefaultBoolean.True;
+       groupItem.SettingsItems.ShowCaption = DefaultBoolean.True;
+       groupItem.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+       groupItem.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+       groupItem.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+
+       groupItem.Items.Add(i =>
+       {
+           i.Caption = "";
+           i.Paddings.PaddingTop = 24;
+           i.SetNestedContent(() =>
+           {
+               Html.DevExpress().Button(b =>
+               {
+                   b.Name = "UpdateBtn";
+                   b.Text = "Guardar";
+                   b.ControlStyle.CssClass = "editFormButton";
+                   b.UseSubmitBehavior = true;
+               }).Render();
+               Html.DevExpress().Button(b =>
+               {
+                   b.Name = "CancelBtn";
+                   b.Text = "Cancelar";
+                   b.Style.Add("margin-left", "4px");
+                   b.ControlStyle.CssClass = "editFormButton";
+                   b.ClientSideEvents.Click = "function(s, e){ document.location='" + DevExpressHelper.GetUrl(new { Controller = "Periodo_evaluacion", Action = "Cerrar_periodo_partial" }) + "'; }";
+               }).Render();
+           });
+       });
+   }).GetHtml()
+}

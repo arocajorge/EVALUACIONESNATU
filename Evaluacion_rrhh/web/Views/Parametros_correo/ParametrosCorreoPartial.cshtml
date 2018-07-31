@@ -1,0 +1,39 @@
+@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "ParametrosCorreoPartial";
+        settings.CallbackRouteValues = new { Controller = "Parametros_correo", Action = "ParametrosCorreo_partial" };
+        settings.Width = Unit.Percentage(100);
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Parametros_correo", Action = "GuardarDB" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Parametros_correo", Action = "ModificarDB" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.KeyFieldName = "IdEmpresa";
+
+        settings.SettingsPager.Visible = false;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = false;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add("ep_correo");
+        settings.Columns.Add("ep_contrasenia");
+        settings.Columns.Add("ep_puerto");
+        settings.Columns.Add("ep_permite_sll", MVCxGridViewColumnType.CheckBox);
+        settings.Columns.Add("ep_dominio");
+        settings.Columns.Add("ep_observacion");
+    });
+    if (ViewData["EditError"] != null){
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

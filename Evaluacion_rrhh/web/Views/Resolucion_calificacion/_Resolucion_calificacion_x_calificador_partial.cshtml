@@ -1,0 +1,51 @@
+﻿@model Info.reportes.tbl_reporte003_Info
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "_Resolucion_calificacion_partial";
+        settings.CallbackRouteValues = new { Controller = "Resolucion_calificacion", Action = "Resolucion_calificacion_x_calificador_partial", IdPeriodo = (Model == null ? 0 : Model.IdPeriodo), IdEmpleado = (Model == null ? 0 : Model.Idempleado), Idempleado_evaluado = (Model == null ? 0 : Model.Idempleado_evaluado) };
+        settings.Width = Unit.Percentage(100);
+
+        settings.Caption = "Calificaciones del Periodo";
+
+        settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.None;
+        settings.SettingsBehavior.AllowSort = false;
+        settings.KeyFieldName = "IdEmpleado";
+
+        settings.CommandColumn.Visible = false;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.SettingsPager.PageSize = 100;
+        settings.SettingsPager.Visible = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "emp_evaluado";
+            column.Caption = "Evaluado";
+            column.SortIndex = 1;
+        });
+        settings.Columns.Add("emp_evaluador", "Evaluador");
+        settings.Columns.Add("ef_descripcion", "formulario");
+        settings.Columns.Add("ef_ponderacion", "Ponderación formulario");
+        settings.Columns.Add("ef_calificacion", "Calificación formulario [0 - 100]");
+        settings.Columns.Add("ef_calificacion_ponderacion", "Calificación ponderada");
+
+        settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "ef_calificacion_ponderacion").DisplayFormat = "n2";
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(ViewBag.lst_rpt).GetHtml()
+
+

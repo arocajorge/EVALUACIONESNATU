@@ -1,0 +1,1120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model_general.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="enc_formulario">
+          <Key>
+            <PropertyRef Name="IdFormulario" />
+            <PropertyRef Name="IdPeriodo" />
+          </Key>
+          <Property Name="IdFormulario" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IdPeriodo" Type="int" Nullable="false" />
+          <Property Name="ef_codigo" Type="varchar" MaxLength="50" />
+          <Property Name="ef_descripcion" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="enc_formulario_pregunta">
+          <Key>
+            <PropertyRef Name="IdPregunta" />
+          </Key>
+          <Property Name="IdPregunta" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IdPeriodo" Type="int" Nullable="false" />
+          <Property Name="IdFormulario" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ep_descripcion" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="estado" Type="bit" Nullable="false" />
+          <Property Name="ep_ponderacion" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="enc_resolucion_calificacion">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+            <PropertyRef Name="IdPeriodo" />
+          </Key>
+          <Property Name="IdEmpleado" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IdPeriodo" Type="int" Nullable="false" />
+          <Property Name="Calificacion" Type="float" Nullable="false" />
+          <Property Name="factor_cumplimiento" Type="bit" Nullable="false" />
+          <Property Name="calificacion_final" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="enc_resolucion_formulario">
+          <Key>
+            <PropertyRef Name="IdResolucion" />
+          </Key>
+          <Property Name="IdResolucion" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IdPeriodo" Type="int" Nullable="false" />
+          <Property Name="IdEmpleado" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IdEmpleado_evaluado" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="re_fecha" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="enc_resolucion_formulario_det">
+          <Key>
+            <PropertyRef Name="IdResolucion" />
+            <PropertyRef Name="secuencia" />
+          </Key>
+          <Property Name="IdResolucion" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="secuencia" Type="int" Nullable="false" />
+          <Property Name="IdPregunta" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="re_ponderacion" Type="float" />
+        </EntityType>
+        <EntityType Name="rol_cargo">
+          <Key>
+            <PropertyRef Name="IdCargo" />
+          </Key>
+          <Property Name="IdCargo" Type="int" Nullable="false" />
+          <Property Name="rc_codigo" Type="varchar" MaxLength="50" />
+          <Property Name="rc_descripcion" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rol_empleado">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+          </Key>
+          <Property Name="IdEmpleado" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="re_codigo" Type="varchar" MaxLength="50" />
+          <Property Name="re_apellidos" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="re_nombres" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="re_cedula" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="re_correo" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="re_telefonos" Type="varchar" MaxLength="200" />
+          <Property Name="re_direccion" Type="varchar" MaxLength="500" />
+          <Property Name="IdCargo" Type="int" Nullable="false" />
+          <Property Name="estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rol_empleado_x_correo_x_periodo">
+          <Key>
+            <PropertyRef Name="IdPeriodo" />
+            <PropertyRef Name="IdEmpleado" />
+            <PropertyRef Name="Secuencia" />
+          </Key>
+          <Property Name="IdPeriodo" Type="int" Nullable="false" />
+          <Property Name="IdEmpleado" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Secuencia" Type="int" Nullable="false" />
+          <Property Name="Correo_enviado" Type="bit" />
+          <Property Name="Observacion" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="rol_empleado_x_formulario">
+          <Key>
+            <PropertyRef Name="IdPeriodo" />
+            <PropertyRef Name="Secuencia" />
+            <PropertyRef Name="Idempleado" />
+          </Key>
+          <Property Name="IdPeriodo" Type="int" Nullable="false" />
+          <Property Name="Secuencia" Type="int" Nullable="false" />
+          <Property Name="Idempleado" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Idempleado_evaluado" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IdFormulario" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ef_ponderacion" Type="float" Nullable="false" />
+          <Property Name="ef_calificacion" Type="float" />
+          <Property Name="ef_calificacion_ponderacion" Type="float" />
+        </EntityType>
+        <EntityType Name="tbl_parametros_correo">
+          <Key>
+            <PropertyRef Name="IdParametros" />
+          </Key>
+          <Property Name="IdParametros" Type="int" Nullable="false" />
+          <Property Name="ep_correo" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ep_contrasenia" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ep_puerto" Type="int" Nullable="false" />
+          <Property Name="ep_permite_sll" Type="bit" Nullable="false" />
+          <Property Name="ep_dominio" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="ep_observacion" Type="varchar" MaxLength="800" />
+        </EntityType>
+        <EntityType Name="tbl_periodo_evaluacion">
+          <Key>
+            <PropertyRef Name="IdPeriodo" />
+          </Key>
+          <Property Name="IdPeriodo" Type="int" Nullable="false" />
+          <Property Name="pe_fecha_ini" Type="datetime" Nullable="false" />
+          <Property Name="pe_fecha_fin" Type="datetime" Nullable="false" />
+          <Property Name="pe_observacion" Type="varchar" MaxLength="500" />
+          <Property Name="estado" Type="bit" Nullable="false" />
+          <Property Name="estado_cierre" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="us_contrasenia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'DB_EVALUACION_RRHH.dbo.vw_reporte002' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="vw_reporte002">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+            <PropertyRef Name="IdPeriodo" />
+            <PropertyRef Name="re_apellidos_eva" />
+            <PropertyRef Name="re_nombres_eva" />
+            <PropertyRef Name="re_cedula" />
+            <PropertyRef Name="re_apellidos" />
+            <PropertyRef Name="re_nombres" />
+            <PropertyRef Name="ef_descripcion" />
+            <PropertyRef Name="ep_descripcion" />
+            <PropertyRef Name="ep_ponderacion" />
+            <PropertyRef Name="ef_ponderacion" />
+            <PropertyRef Name="Idempleado_evaluado" />
+            <PropertyRef Name="Calificacion" />
+            <PropertyRef Name="factor_cumplimiento" />
+            <PropertyRef Name="calificacion_final" />
+          </Key>
+          <Property Name="IdEmpleado" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IdPeriodo" Type="int" Nullable="false" />
+          <Property Name="re_codigo_eva" Type="varchar" MaxLength="50" />
+          <Property Name="re_apellidos_eva" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="re_nombres_eva" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="re_cedula" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="re_codigo" Type="varchar" MaxLength="50" />
+          <Property Name="re_apellidos" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="re_nombres" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ef_descripcion" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="ep_descripcion" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="re_ponderacion" Type="float" />
+          <Property Name="ep_ponderacion" Type="float" Nullable="false" />
+          <Property Name="Ponderacion_x_pregunta" Type="float" />
+          <Property Name="ef_ponderacion" Type="float" Nullable="false" />
+          <Property Name="ef_calificacion" Type="float" />
+          <Property Name="ef_calificacion_ponderacion" Type="float" />
+          <Property Name="Idempleado_evaluado" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Calificacion" Type="float" Nullable="false" />
+          <Property Name="factor_cumplimiento" Type="bit" Nullable="false" />
+          <Property Name="calificacion_final" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'DB_EVALUACION_RRHH.dbo.vw_reporte003' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="vw_reporte003">
+          <Key>
+            <PropertyRef Name="IdRow" />
+            <PropertyRef Name="IdPeriodo" />
+            <PropertyRef Name="Secuencia" />
+            <PropertyRef Name="Idempleado" />
+            <PropertyRef Name="Idempleado_evaluado" />
+            <PropertyRef Name="emp_evaluador" />
+            <PropertyRef Name="emp_evaluado" />
+            <PropertyRef Name="ef_descripcion" />
+            <PropertyRef Name="ef_ponderacion" />
+          </Key>
+          <Property Name="IdRow" Type="bigint" Nullable="false" />
+          <Property Name="IdPeriodo" Type="int" Nullable="false" />
+          <Property Name="Secuencia" Type="int" Nullable="false" />
+          <Property Name="Idempleado" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Idempleado_evaluado" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="emp_evaluador" Type="varchar" MaxLength="401" Nullable="false" />
+          <Property Name="emp_evaluado" Type="varchar" MaxLength="401" Nullable="false" />
+          <Property Name="ef_descripcion" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="ef_ponderacion" Type="float" Nullable="false" />
+          <Property Name="ef_calificacion" Type="float" />
+          <Property Name="ef_calificacion_ponderacion" Type="float" />
+        </EntityType>
+        <Association Name="FK_enc_formulario_pregunta_enc_formulario">
+          <End Role="enc_formulario" Type="Self.enc_formulario" Multiplicity="1" />
+          <End Role="enc_formulario_pregunta" Type="Self.enc_formulario_pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enc_formulario">
+              <PropertyRef Name="IdFormulario" />
+              <PropertyRef Name="IdPeriodo" />
+            </Principal>
+            <Dependent Role="enc_formulario_pregunta">
+              <PropertyRef Name="IdFormulario" />
+              <PropertyRef Name="IdPeriodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_formulario_tbl_periodo_evaluacion">
+          <End Role="tbl_periodo_evaluacion" Type="Self.tbl_periodo_evaluacion" Multiplicity="1" />
+          <End Role="enc_formulario" Type="Self.enc_formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_periodo_evaluacion">
+              <PropertyRef Name="IdPeriodo" />
+            </Principal>
+            <Dependent Role="enc_formulario">
+              <PropertyRef Name="IdPeriodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_resolucion_calificacion_rol_empleado">
+          <End Role="rol_empleado" Type="Self.rol_empleado" Multiplicity="1" />
+          <End Role="enc_resolucion_calificacion" Type="Self.enc_resolucion_calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol_empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="enc_resolucion_calificacion">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_resolucion_calificacion_tbl_periodo_evaluacion">
+          <End Role="tbl_periodo_evaluacion" Type="Self.tbl_periodo_evaluacion" Multiplicity="1" />
+          <End Role="enc_resolucion_calificacion" Type="Self.enc_resolucion_calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_periodo_evaluacion">
+              <PropertyRef Name="IdPeriodo" />
+            </Principal>
+            <Dependent Role="enc_resolucion_calificacion">
+              <PropertyRef Name="IdPeriodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_resolucion_formulario_det_enc_formulario_pregunta">
+          <End Role="enc_formulario_pregunta" Type="Self.enc_formulario_pregunta" Multiplicity="1" />
+          <End Role="enc_resolucion_formulario_det" Type="Self.enc_resolucion_formulario_det" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enc_formulario_pregunta">
+              <PropertyRef Name="IdPregunta" />
+            </Principal>
+            <Dependent Role="enc_resolucion_formulario_det">
+              <PropertyRef Name="IdPregunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_resolucion_formulario_det_enc_resolucion_formulario">
+          <End Role="enc_resolucion_formulario" Type="Self.enc_resolucion_formulario" Multiplicity="1" />
+          <End Role="enc_resolucion_formulario_det" Type="Self.enc_resolucion_formulario_det" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enc_resolucion_formulario">
+              <PropertyRef Name="IdResolucion" />
+            </Principal>
+            <Dependent Role="enc_resolucion_formulario_det">
+              <PropertyRef Name="IdResolucion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_resolucion_formulario_rol_empleado">
+          <End Role="rol_empleado" Type="Self.rol_empleado" Multiplicity="1" />
+          <End Role="enc_resolucion_formulario" Type="Self.enc_resolucion_formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol_empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="enc_resolucion_formulario">
+              <PropertyRef Name="IdEmpleado_evaluado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_resolucion_formulario_tbl_periodo_evaluacion">
+          <End Role="tbl_periodo_evaluacion" Type="Self.tbl_periodo_evaluacion" Multiplicity="1" />
+          <End Role="enc_resolucion_formulario" Type="Self.enc_resolucion_formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_periodo_evaluacion">
+              <PropertyRef Name="IdPeriodo" />
+            </Principal>
+            <Dependent Role="enc_resolucion_formulario">
+              <PropertyRef Name="IdPeriodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rol_empleado_rol_cargo">
+          <End Role="rol_cargo" Type="Self.rol_cargo" Multiplicity="1" />
+          <End Role="rol_empleado" Type="Self.rol_empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol_cargo">
+              <PropertyRef Name="IdCargo" />
+            </Principal>
+            <Dependent Role="rol_empleado">
+              <PropertyRef Name="IdCargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rol_empleado_x_formulario_enc_formulario">
+          <End Role="enc_formulario" Type="Self.enc_formulario" Multiplicity="1" />
+          <End Role="rol_empleado_x_formulario" Type="Self.rol_empleado_x_formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enc_formulario">
+              <PropertyRef Name="IdFormulario" />
+              <PropertyRef Name="IdPeriodo" />
+            </Principal>
+            <Dependent Role="rol_empleado_x_formulario">
+              <PropertyRef Name="IdFormulario" />
+              <PropertyRef Name="IdPeriodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rol_empleado_x_formulario_rol_empleado">
+          <End Role="rol_empleado" Type="Self.rol_empleado" Multiplicity="1" />
+          <End Role="rol_empleado_x_formulario" Type="Self.rol_empleado_x_formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol_empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="rol_empleado_x_formulario">
+              <PropertyRef Name="Idempleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rol_empleado_x_formulario_rol_empleado1">
+          <End Role="rol_empleado" Type="Self.rol_empleado" Multiplicity="1" />
+          <End Role="rol_empleado_x_formulario" Type="Self.rol_empleado_x_formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol_empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="rol_empleado_x_formulario">
+              <PropertyRef Name="Idempleado_evaluado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_cerrar_periodo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdPeriodo" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Model_generalStoreContainer">
+          <EntitySet Name="enc_formulario" EntityType="Self.enc_formulario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="enc_formulario_pregunta" EntityType="Self.enc_formulario_pregunta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="enc_resolucion_calificacion" EntityType="Self.enc_resolucion_calificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="enc_resolucion_formulario" EntityType="Self.enc_resolucion_formulario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="enc_resolucion_formulario_det" EntityType="Self.enc_resolucion_formulario_det" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rol_cargo" EntityType="Self.rol_cargo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rol_empleado" EntityType="Self.rol_empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rol_empleado_x_correo_x_periodo" EntityType="Self.rol_empleado_x_correo_x_periodo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rol_empleado_x_formulario" EntityType="Self.rol_empleado_x_formulario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_parametros_correo" EntityType="Self.tbl_parametros_correo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_periodo_evaluacion" EntityType="Self.tbl_periodo_evaluacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_usuario" EntityType="Self.tbl_usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_reporte002" EntityType="Self.vw_reporte002" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_reporte002].[IdEmpleado] AS [IdEmpleado], 
+    [vw_reporte002].[IdPeriodo] AS [IdPeriodo], 
+    [vw_reporte002].[re_codigo_eva] AS [re_codigo_eva], 
+    [vw_reporte002].[re_apellidos_eva] AS [re_apellidos_eva], 
+    [vw_reporte002].[re_nombres_eva] AS [re_nombres_eva], 
+    [vw_reporte002].[re_cedula] AS [re_cedula], 
+    [vw_reporte002].[re_codigo] AS [re_codigo], 
+    [vw_reporte002].[re_apellidos] AS [re_apellidos], 
+    [vw_reporte002].[re_nombres] AS [re_nombres], 
+    [vw_reporte002].[ef_descripcion] AS [ef_descripcion], 
+    [vw_reporte002].[ep_descripcion] AS [ep_descripcion], 
+    [vw_reporte002].[re_ponderacion] AS [re_ponderacion], 
+    [vw_reporte002].[ep_ponderacion] AS [ep_ponderacion], 
+    [vw_reporte002].[Ponderacion_x_pregunta] AS [Ponderacion_x_pregunta], 
+    [vw_reporte002].[ef_ponderacion] AS [ef_ponderacion], 
+    [vw_reporte002].[ef_calificacion] AS [ef_calificacion], 
+    [vw_reporte002].[ef_calificacion_ponderacion] AS [ef_calificacion_ponderacion], 
+    [vw_reporte002].[Idempleado_evaluado] AS [Idempleado_evaluado], 
+    [vw_reporte002].[Calificacion] AS [Calificacion], 
+    [vw_reporte002].[factor_cumplimiento] AS [factor_cumplimiento], 
+    [vw_reporte002].[calificacion_final] AS [calificacion_final]
+    FROM [dbo].[vw_reporte002] AS [vw_reporte002]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_reporte003" EntityType="Self.vw_reporte003" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_reporte003].[IdRow] AS [IdRow], 
+    [vw_reporte003].[IdPeriodo] AS [IdPeriodo], 
+    [vw_reporte003].[Secuencia] AS [Secuencia], 
+    [vw_reporte003].[Idempleado] AS [Idempleado], 
+    [vw_reporte003].[Idempleado_evaluado] AS [Idempleado_evaluado], 
+    [vw_reporte003].[emp_evaluador] AS [emp_evaluador], 
+    [vw_reporte003].[emp_evaluado] AS [emp_evaluado], 
+    [vw_reporte003].[ef_descripcion] AS [ef_descripcion], 
+    [vw_reporte003].[ef_ponderacion] AS [ef_ponderacion], 
+    [vw_reporte003].[ef_calificacion] AS [ef_calificacion], 
+    [vw_reporte003].[ef_calificacion_ponderacion] AS [ef_calificacion_ponderacion]
+    FROM [dbo].[vw_reporte003] AS [vw_reporte003]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_enc_formulario_pregunta_enc_formulario" Association="Self.FK_enc_formulario_pregunta_enc_formulario">
+            <End Role="enc_formulario" EntitySet="enc_formulario" />
+            <End Role="enc_formulario_pregunta" EntitySet="enc_formulario_pregunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_formulario_tbl_periodo_evaluacion" Association="Self.FK_enc_formulario_tbl_periodo_evaluacion">
+            <End Role="tbl_periodo_evaluacion" EntitySet="tbl_periodo_evaluacion" />
+            <End Role="enc_formulario" EntitySet="enc_formulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_resolucion_calificacion_rol_empleado" Association="Self.FK_enc_resolucion_calificacion_rol_empleado">
+            <End Role="rol_empleado" EntitySet="rol_empleado" />
+            <End Role="enc_resolucion_calificacion" EntitySet="enc_resolucion_calificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_resolucion_calificacion_tbl_periodo_evaluacion" Association="Self.FK_enc_resolucion_calificacion_tbl_periodo_evaluacion">
+            <End Role="tbl_periodo_evaluacion" EntitySet="tbl_periodo_evaluacion" />
+            <End Role="enc_resolucion_calificacion" EntitySet="enc_resolucion_calificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_resolucion_formulario_det_enc_formulario_pregunta" Association="Self.FK_enc_resolucion_formulario_det_enc_formulario_pregunta">
+            <End Role="enc_formulario_pregunta" EntitySet="enc_formulario_pregunta" />
+            <End Role="enc_resolucion_formulario_det" EntitySet="enc_resolucion_formulario_det" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_resolucion_formulario_det_enc_resolucion_formulario" Association="Self.FK_enc_resolucion_formulario_det_enc_resolucion_formulario">
+            <End Role="enc_resolucion_formulario" EntitySet="enc_resolucion_formulario" />
+            <End Role="enc_resolucion_formulario_det" EntitySet="enc_resolucion_formulario_det" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_resolucion_formulario_rol_empleado" Association="Self.FK_enc_resolucion_formulario_rol_empleado">
+            <End Role="rol_empleado" EntitySet="rol_empleado" />
+            <End Role="enc_resolucion_formulario" EntitySet="enc_resolucion_formulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_resolucion_formulario_tbl_periodo_evaluacion" Association="Self.FK_enc_resolucion_formulario_tbl_periodo_evaluacion">
+            <End Role="tbl_periodo_evaluacion" EntitySet="tbl_periodo_evaluacion" />
+            <End Role="enc_resolucion_formulario" EntitySet="enc_resolucion_formulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rol_empleado_rol_cargo" Association="Self.FK_rol_empleado_rol_cargo">
+            <End Role="rol_cargo" EntitySet="rol_cargo" />
+            <End Role="rol_empleado" EntitySet="rol_empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rol_empleado_x_formulario_enc_formulario" Association="Self.FK_rol_empleado_x_formulario_enc_formulario">
+            <End Role="enc_formulario" EntitySet="enc_formulario" />
+            <End Role="rol_empleado_x_formulario" EntitySet="rol_empleado_x_formulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rol_empleado_x_formulario_rol_empleado" Association="Self.FK_rol_empleado_x_formulario_rol_empleado">
+            <End Role="rol_empleado" EntitySet="rol_empleado" />
+            <End Role="rol_empleado_x_formulario" EntitySet="rol_empleado_x_formulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rol_empleado_x_formulario_rol_empleado1" Association="Self.FK_rol_empleado_x_formulario_rol_empleado1">
+            <End Role="rol_empleado" EntitySet="rol_empleado" />
+            <End Role="rol_empleado_x_formulario" EntitySet="rol_empleado_x_formulario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model_general" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="enc_formulario">
+          <Key>
+            <PropertyRef Name="IdFormulario" />
+            <PropertyRef Name="IdPeriodo" />
+          </Key>
+          <Property Name="IdFormulario" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="ef_codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ef_descripcion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="enc_formulario_pregunta" Relationship="Self.FK_enc_formulario_pregunta_enc_formulario" FromRole="enc_formulario" ToRole="enc_formulario_pregunta" />
+          <NavigationProperty Name="tbl_periodo_evaluacion" Relationship="Self.FK_enc_formulario_tbl_periodo_evaluacion" FromRole="enc_formulario" ToRole="tbl_periodo_evaluacion" />
+          <NavigationProperty Name="rol_empleado_x_formulario" Relationship="Model_general.FK_rol_empleado_x_formulario_enc_formulario" FromRole="enc_formulario" ToRole="rol_empleado_x_formulario" />
+        </EntityType>
+        <EntityType Name="enc_formulario_pregunta">
+          <Key>
+            <PropertyRef Name="IdPregunta" />
+          </Key>
+          <Property Name="IdPregunta" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="IdFormulario" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ep_descripcion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <Property Name="ep_ponderacion" Type="Double" Nullable="false" />
+          <NavigationProperty Name="enc_formulario" Relationship="Self.FK_enc_formulario_pregunta_enc_formulario" FromRole="enc_formulario_pregunta" ToRole="enc_formulario" />
+          <NavigationProperty Name="enc_resolucion_formulario_det" Relationship="Self.FK_enc_resolucion_formulario_det_enc_formulario_pregunta" FromRole="enc_formulario_pregunta" ToRole="enc_resolucion_formulario_det" />
+        </EntityType>
+        <EntityType Name="enc_resolucion_formulario">
+          <Key>
+            <PropertyRef Name="IdResolucion" />
+          </Key>
+          <Property Name="IdResolucion" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="IdEmpleado" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IdEmpleado_evaluado" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="re_fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="enc_resolucion_formulario_det" Relationship="Self.FK_enc_resolucion_formulario_det_enc_resolucion_formulario" FromRole="enc_resolucion_formulario" ToRole="enc_resolucion_formulario_det" />
+          <NavigationProperty Name="rol_empleado" Relationship="Self.FK_enc_resolucion_formulario_rol_empleado" FromRole="enc_resolucion_formulario" ToRole="rol_empleado" />
+          <NavigationProperty Name="tbl_periodo_evaluacion" Relationship="Self.FK_enc_resolucion_formulario_tbl_periodo_evaluacion" FromRole="enc_resolucion_formulario" ToRole="tbl_periodo_evaluacion" />
+        </EntityType>
+        <EntityType Name="enc_resolucion_formulario_det">
+          <Key>
+            <PropertyRef Name="IdResolucion" />
+            <PropertyRef Name="secuencia" />
+          </Key>
+          <Property Name="IdResolucion" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="secuencia" Type="Int32" Nullable="false" />
+          <Property Name="IdPregunta" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="re_ponderacion" Type="Double" />
+          <NavigationProperty Name="enc_formulario_pregunta" Relationship="Self.FK_enc_resolucion_formulario_det_enc_formulario_pregunta" FromRole="enc_resolucion_formulario_det" ToRole="enc_formulario_pregunta" />
+          <NavigationProperty Name="enc_resolucion_formulario" Relationship="Self.FK_enc_resolucion_formulario_det_enc_resolucion_formulario" FromRole="enc_resolucion_formulario_det" ToRole="enc_resolucion_formulario" />
+        </EntityType>
+        <EntityType Name="rol_cargo">
+          <Key>
+            <PropertyRef Name="IdCargo" />
+          </Key>
+          <Property Name="IdCargo" Type="Int32" Nullable="false" />
+          <Property Name="rc_codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rc_descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="rol_empleado" Relationship="Self.FK_rol_empleado_rol_cargo" FromRole="rol_cargo" ToRole="rol_empleado" />
+        </EntityType>
+        <EntityType Name="rol_empleado">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+          </Key>
+          <Property Name="IdEmpleado" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="re_codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="re_apellidos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="re_nombres" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="re_cedula" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="re_correo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="re_telefonos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="re_direccion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IdCargo" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="enc_resolucion_formulario" Relationship="Self.FK_enc_resolucion_formulario_rol_empleado" FromRole="rol_empleado" ToRole="enc_resolucion_formulario" />
+          <NavigationProperty Name="rol_cargo" Relationship="Self.FK_rol_empleado_rol_cargo" FromRole="rol_empleado" ToRole="rol_cargo" />
+          <NavigationProperty Name="rol_empleado_x_formulario" Relationship="Model_general.FK_rol_empleado_x_formulario_rol_empleado" FromRole="rol_empleado" ToRole="rol_empleado_x_formulario" />
+          <NavigationProperty Name="rol_empleado_x_formulario1" Relationship="Model_general.FK_rol_empleado_x_formulario_rol_empleado1" FromRole="rol_empleado" ToRole="rol_empleado_x_formulario" />
+          <NavigationProperty Name="enc_resolucion_calificacion" Relationship="Model_general.FK_enc_resolucion_calificacion_rol_empleado" FromRole="rol_empleado" ToRole="enc_resolucion_calificacion" />
+          </EntityType>
+        <EntityType Name="rol_empleado_x_correo_x_periodo">
+          <Key>
+            <PropertyRef Name="IdPeriodo" />
+            <PropertyRef Name="IdEmpleado" />
+            <PropertyRef Name="Secuencia" />
+          </Key>
+          <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="IdEmpleado" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Secuencia" Type="Int32" Nullable="false" />
+          <Property Name="Correo_enviado" Type="Boolean" />
+          <Property Name="Observacion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_parametros_correo">
+          <Key>
+            <PropertyRef Name="IdParametros" />
+          </Key>
+          <Property Name="IdParametros" Type="Int32" Nullable="false" />
+          <Property Name="ep_correo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ep_contrasenia" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ep_puerto" Type="Int32" Nullable="false" />
+          <Property Name="ep_permite_sll" Type="Boolean" Nullable="false" />
+          <Property Name="ep_dominio" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ep_observacion" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_periodo_evaluacion">
+          <Key>
+            <PropertyRef Name="IdPeriodo" />
+          </Key>
+          <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="pe_fecha_ini" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="pe_fecha_fin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="pe_observacion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <Property Name="estado_cierre" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="enc_formulario" Relationship="Self.FK_enc_formulario_tbl_periodo_evaluacion" FromRole="tbl_periodo_evaluacion" ToRole="enc_formulario" />
+          <NavigationProperty Name="enc_resolucion_formulario" Relationship="Self.FK_enc_resolucion_formulario_tbl_periodo_evaluacion" FromRole="tbl_periodo_evaluacion" ToRole="enc_resolucion_formulario" />
+          <NavigationProperty Name="enc_resolucion_calificacion" Relationship="Model_general.FK_enc_resolucion_calificacion_tbl_periodo_evaluacion" FromRole="tbl_periodo_evaluacion" ToRole="enc_resolucion_calificacion" />
+        </EntityType>
+        <EntityType Name="tbl_usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="us_contrasenia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_enc_formulario_pregunta_enc_formulario">
+          <End Role="enc_formulario" Type="Self.enc_formulario" Multiplicity="1" />
+          <End Role="enc_formulario_pregunta" Type="Self.enc_formulario_pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enc_formulario">
+              <PropertyRef Name="IdFormulario" />
+              <PropertyRef Name="IdPeriodo" />
+            </Principal>
+            <Dependent Role="enc_formulario_pregunta">
+              <PropertyRef Name="IdFormulario" />
+              <PropertyRef Name="IdPeriodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_formulario_tbl_periodo_evaluacion">
+          <End Role="tbl_periodo_evaluacion" Type="Self.tbl_periodo_evaluacion" Multiplicity="1" />
+          <End Role="enc_formulario" Type="Self.enc_formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_periodo_evaluacion">
+              <PropertyRef Name="IdPeriodo" />
+            </Principal>
+            <Dependent Role="enc_formulario">
+              <PropertyRef Name="IdPeriodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_resolucion_formulario_det_enc_formulario_pregunta">
+          <End Role="enc_formulario_pregunta" Type="Self.enc_formulario_pregunta" Multiplicity="1" />
+          <End Role="enc_resolucion_formulario_det" Type="Self.enc_resolucion_formulario_det" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enc_formulario_pregunta">
+              <PropertyRef Name="IdPregunta" />
+            </Principal>
+            <Dependent Role="enc_resolucion_formulario_det">
+              <PropertyRef Name="IdPregunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_resolucion_formulario_det_enc_resolucion_formulario">
+          <End Role="enc_resolucion_formulario" Type="Self.enc_resolucion_formulario" Multiplicity="1" />
+          <End Role="enc_resolucion_formulario_det" Type="Self.enc_resolucion_formulario_det" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enc_resolucion_formulario">
+              <PropertyRef Name="IdResolucion" />
+            </Principal>
+            <Dependent Role="enc_resolucion_formulario_det">
+              <PropertyRef Name="IdResolucion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_resolucion_formulario_rol_empleado">
+          <End Role="rol_empleado" Type="Self.rol_empleado" Multiplicity="1" />
+          <End Role="enc_resolucion_formulario" Type="Self.enc_resolucion_formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol_empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="enc_resolucion_formulario">
+              <PropertyRef Name="IdEmpleado_evaluado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_resolucion_formulario_tbl_periodo_evaluacion">
+          <End Role="tbl_periodo_evaluacion" Type="Self.tbl_periodo_evaluacion" Multiplicity="1" />
+          <End Role="enc_resolucion_formulario" Type="Self.enc_resolucion_formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_periodo_evaluacion">
+              <PropertyRef Name="IdPeriodo" />
+            </Principal>
+            <Dependent Role="enc_resolucion_formulario">
+              <PropertyRef Name="IdPeriodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rol_empleado_rol_cargo">
+          <End Role="rol_cargo" Type="Self.rol_cargo" Multiplicity="1" />
+          <End Role="rol_empleado" Type="Self.rol_empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol_cargo">
+              <PropertyRef Name="IdCargo" />
+            </Principal>
+            <Dependent Role="rol_empleado">
+              <PropertyRef Name="IdCargo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities_general" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="enc_formulario" EntityType="Self.enc_formulario" />
+          <EntitySet Name="enc_formulario_pregunta" EntityType="Self.enc_formulario_pregunta" />
+          <EntitySet Name="enc_resolucion_formulario" EntityType="Self.enc_resolucion_formulario" />
+          <EntitySet Name="enc_resolucion_formulario_det" EntityType="Self.enc_resolucion_formulario_det" />
+          <EntitySet Name="rol_cargo" EntityType="Self.rol_cargo" />
+          <EntitySet Name="rol_empleado" EntityType="Self.rol_empleado" />
+          <EntitySet Name="rol_empleado_x_correo_x_periodo" EntityType="Self.rol_empleado_x_correo_x_periodo" />
+          <EntitySet Name="tbl_parametros_correo" EntityType="Self.tbl_parametros_correo" />
+          <EntitySet Name="tbl_periodo_evaluacion" EntityType="Self.tbl_periodo_evaluacion" />
+          <EntitySet Name="tbl_usuario" EntityType="Self.tbl_usuario" />
+          <AssociationSet Name="FK_enc_formulario_pregunta_enc_formulario" Association="Self.FK_enc_formulario_pregunta_enc_formulario">
+            <End Role="enc_formulario" EntitySet="enc_formulario" />
+            <End Role="enc_formulario_pregunta" EntitySet="enc_formulario_pregunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_formulario_tbl_periodo_evaluacion" Association="Self.FK_enc_formulario_tbl_periodo_evaluacion">
+            <End Role="tbl_periodo_evaluacion" EntitySet="tbl_periodo_evaluacion" />
+            <End Role="enc_formulario" EntitySet="enc_formulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_resolucion_formulario_det_enc_formulario_pregunta" Association="Self.FK_enc_resolucion_formulario_det_enc_formulario_pregunta">
+            <End Role="enc_formulario_pregunta" EntitySet="enc_formulario_pregunta" />
+            <End Role="enc_resolucion_formulario_det" EntitySet="enc_resolucion_formulario_det" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_resolucion_formulario_det_enc_resolucion_formulario" Association="Self.FK_enc_resolucion_formulario_det_enc_resolucion_formulario">
+            <End Role="enc_resolucion_formulario" EntitySet="enc_resolucion_formulario" />
+            <End Role="enc_resolucion_formulario_det" EntitySet="enc_resolucion_formulario_det" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_resolucion_formulario_rol_empleado" Association="Self.FK_enc_resolucion_formulario_rol_empleado">
+            <End Role="rol_empleado" EntitySet="rol_empleado" />
+            <End Role="enc_resolucion_formulario" EntitySet="enc_resolucion_formulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_resolucion_formulario_tbl_periodo_evaluacion" Association="Self.FK_enc_resolucion_formulario_tbl_periodo_evaluacion">
+            <End Role="tbl_periodo_evaluacion" EntitySet="tbl_periodo_evaluacion" />
+            <End Role="enc_resolucion_formulario" EntitySet="enc_resolucion_formulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rol_empleado_rol_cargo" Association="Self.FK_rol_empleado_rol_cargo">
+            <End Role="rol_cargo" EntitySet="rol_cargo" />
+            <End Role="rol_empleado" EntitySet="rol_empleado" />
+          </AssociationSet>
+          <EntitySet Name="rol_empleado_x_formulario" EntityType="Model_general.rol_empleado_x_formulario" />
+          <AssociationSet Name="FK_rol_empleado_x_formulario_enc_formulario" Association="Model_general.FK_rol_empleado_x_formulario_enc_formulario">
+            <End Role="enc_formulario" EntitySet="enc_formulario" />
+            <End Role="rol_empleado_x_formulario" EntitySet="rol_empleado_x_formulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rol_empleado_x_formulario_rol_empleado" Association="Model_general.FK_rol_empleado_x_formulario_rol_empleado">
+            <End Role="rol_empleado" EntitySet="rol_empleado" />
+            <End Role="rol_empleado_x_formulario" EntitySet="rol_empleado_x_formulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_rol_empleado_x_formulario_rol_empleado1" Association="Model_general.FK_rol_empleado_x_formulario_rol_empleado1">
+            <End Role="rol_empleado" EntitySet="rol_empleado" />
+            <End Role="rol_empleado_x_formulario" EntitySet="rol_empleado_x_formulario" />
+          </AssociationSet>
+          <FunctionImport Name="sp_cerrar_periodo">
+          <Parameter Name="IdPeriodo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="enc_resolucion_calificacion" EntityType="Model_general.enc_resolucion_calificacion" />
+          <AssociationSet Name="FK_enc_resolucion_calificacion_rol_empleado" Association="Model_general.FK_enc_resolucion_calificacion_rol_empleado">
+            <End Role="rol_empleado" EntitySet="rol_empleado" />
+            <End Role="enc_resolucion_calificacion" EntitySet="enc_resolucion_calificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_resolucion_calificacion_tbl_periodo_evaluacion" Association="Model_general.FK_enc_resolucion_calificacion_tbl_periodo_evaluacion">
+            <End Role="tbl_periodo_evaluacion" EntitySet="tbl_periodo_evaluacion" />
+            <End Role="enc_resolucion_calificacion" EntitySet="enc_resolucion_calificacion" />
+          </AssociationSet>
+          <EntitySet Name="vw_reporte002" EntityType="Model_general.vw_reporte002" />
+          <EntitySet Name="vw_reporte003" EntityType="Model_general.vw_reporte003" />
+          </EntityContainer>
+        <EntityType Name="rol_empleado_x_formulario">
+          <Key>
+            <PropertyRef Name="IdPeriodo" />
+            <PropertyRef Name="Secuencia" />
+            <PropertyRef Name="Idempleado" />
+          </Key>
+          <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="Secuencia" Type="Int32" Nullable="false" />
+          <Property Name="Idempleado" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Idempleado_evaluado" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="IdFormulario" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ef_ponderacion" Type="Double" Nullable="false" />
+          <Property Name="ef_calificacion" Type="Double" />
+          <Property Name="ef_calificacion_ponderacion" Type="Double" />
+          <NavigationProperty Name="enc_formulario" Relationship="Model_general.FK_rol_empleado_x_formulario_enc_formulario" FromRole="rol_empleado_x_formulario" ToRole="enc_formulario" />
+          <NavigationProperty Name="rol_empleado" Relationship="Model_general.FK_rol_empleado_x_formulario_rol_empleado" FromRole="rol_empleado_x_formulario" ToRole="rol_empleado" />
+          <NavigationProperty Name="rol_empleado1" Relationship="Model_general.FK_rol_empleado_x_formulario_rol_empleado1" FromRole="rol_empleado_x_formulario" ToRole="rol_empleado" />
+        </EntityType>
+        <Association Name="FK_rol_empleado_x_formulario_enc_formulario">
+          <End Type="Model_general.enc_formulario" Role="enc_formulario" Multiplicity="1" />
+          <End Type="Model_general.rol_empleado_x_formulario" Role="rol_empleado_x_formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enc_formulario">
+              <PropertyRef Name="IdFormulario" />
+              <PropertyRef Name="IdPeriodo" />
+            </Principal>
+            <Dependent Role="rol_empleado_x_formulario">
+              <PropertyRef Name="IdFormulario" />
+              <PropertyRef Name="IdPeriodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rol_empleado_x_formulario_rol_empleado">
+          <End Type="Model_general.rol_empleado" Role="rol_empleado" Multiplicity="1" />
+          <End Type="Model_general.rol_empleado_x_formulario" Role="rol_empleado_x_formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol_empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="rol_empleado_x_formulario">
+              <PropertyRef Name="Idempleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_rol_empleado_x_formulario_rol_empleado1">
+          <End Type="Model_general.rol_empleado" Role="rol_empleado" Multiplicity="1" />
+          <End Type="Model_general.rol_empleado_x_formulario" Role="rol_empleado_x_formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol_empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="rol_empleado_x_formulario">
+              <PropertyRef Name="Idempleado_evaluado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="enc_resolucion_calificacion">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+            <PropertyRef Name="IdPeriodo" />
+          </Key>
+          <Property Name="IdEmpleado" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="Calificacion" Type="Double" Nullable="false" />
+          <Property Name="factor_cumplimiento" Type="Boolean" Nullable="false" />
+          <Property Name="calificacion_final" Type="Double" Nullable="false" />
+          <NavigationProperty Name="rol_empleado" Relationship="Model_general.FK_enc_resolucion_calificacion_rol_empleado" FromRole="enc_resolucion_calificacion" ToRole="rol_empleado" />
+          <NavigationProperty Name="tbl_periodo_evaluacion" Relationship="Model_general.FK_enc_resolucion_calificacion_tbl_periodo_evaluacion" FromRole="enc_resolucion_calificacion" ToRole="tbl_periodo_evaluacion" />
+        </EntityType>
+        <Association Name="FK_enc_resolucion_calificacion_rol_empleado">
+          <End Type="Model_general.rol_empleado" Role="rol_empleado" Multiplicity="1" />
+          <End Type="Model_general.enc_resolucion_calificacion" Role="enc_resolucion_calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol_empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="enc_resolucion_calificacion">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_resolucion_calificacion_tbl_periodo_evaluacion">
+          <End Type="Model_general.tbl_periodo_evaluacion" Role="tbl_periodo_evaluacion" Multiplicity="1" />
+          <End Type="Model_general.enc_resolucion_calificacion" Role="enc_resolucion_calificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_periodo_evaluacion">
+              <PropertyRef Name="IdPeriodo" />
+            </Principal>
+            <Dependent Role="enc_resolucion_calificacion">
+              <PropertyRef Name="IdPeriodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="vw_reporte002">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+            <PropertyRef Name="IdPeriodo" />
+            <PropertyRef Name="re_apellidos_eva" />
+            <PropertyRef Name="re_nombres_eva" />
+            <PropertyRef Name="re_cedula" />
+            <PropertyRef Name="re_apellidos" />
+            <PropertyRef Name="re_nombres" />
+            <PropertyRef Name="ef_descripcion" />
+            <PropertyRef Name="ep_descripcion" />
+            <PropertyRef Name="ep_ponderacion" />
+            <PropertyRef Name="ef_ponderacion" />
+            <PropertyRef Name="Idempleado_evaluado" />
+            <PropertyRef Name="Calificacion" />
+            <PropertyRef Name="factor_cumplimiento" />
+            <PropertyRef Name="calificacion_final" />
+          </Key>
+          <Property Name="IdEmpleado" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="re_codigo_eva" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="re_apellidos_eva" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="re_nombres_eva" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="re_cedula" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="re_codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="re_apellidos" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="re_nombres" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ef_descripcion" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ep_descripcion" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="re_ponderacion" Type="Double" />
+          <Property Name="ep_ponderacion" Type="Double" Nullable="false" />
+          <Property Name="Ponderacion_x_pregunta" Type="Double" />
+          <Property Name="ef_ponderacion" Type="Double" Nullable="false" />
+          <Property Name="ef_calificacion" Type="Double" />
+          <Property Name="ef_calificacion_ponderacion" Type="Double" />
+          <Property Name="Idempleado_evaluado" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Calificacion" Type="Double" Nullable="false" />
+          <Property Name="factor_cumplimiento" Type="Boolean" Nullable="false" />
+          <Property Name="calificacion_final" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vw_reporte003">
+          <Key>
+            <PropertyRef Name="IdRow" />
+            <PropertyRef Name="IdPeriodo" />
+            <PropertyRef Name="Secuencia" />
+            <PropertyRef Name="Idempleado" />
+            <PropertyRef Name="Idempleado_evaluado" />
+            <PropertyRef Name="emp_evaluador" />
+            <PropertyRef Name="emp_evaluado" />
+            <PropertyRef Name="ef_descripcion" />
+            <PropertyRef Name="ef_ponderacion" />
+          </Key>
+          <Property Name="IdRow" Type="Int64" Nullable="false" />
+          <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="Secuencia" Type="Int32" Nullable="false" />
+          <Property Name="Idempleado" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Idempleado_evaluado" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="emp_evaluador" Type="String" Nullable="false" MaxLength="401" FixedLength="false" Unicode="false" />
+          <Property Name="emp_evaluado" Type="String" Nullable="false" MaxLength="401" FixedLength="false" Unicode="false" />
+          <Property Name="ef_descripcion" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ef_ponderacion" Type="Double" Nullable="false" />
+          <Property Name="ef_calificacion" Type="Double" />
+          <Property Name="ef_calificacion_ponderacion" Type="Double" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Model_generalStoreContainer" CdmEntityContainer="Entities_general">
+          <EntitySetMapping Name="enc_formulario">
+            <EntityTypeMapping TypeName="Model_general.enc_formulario">
+              <MappingFragment StoreEntitySet="enc_formulario">
+                <ScalarProperty Name="IdFormulario" ColumnName="IdFormulario" />
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="ef_codigo" ColumnName="ef_codigo" />
+                <ScalarProperty Name="ef_descripcion" ColumnName="ef_descripcion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enc_formulario_pregunta">
+            <EntityTypeMapping TypeName="Model_general.enc_formulario_pregunta">
+              <MappingFragment StoreEntitySet="enc_formulario_pregunta">
+                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="IdFormulario" ColumnName="IdFormulario" />
+                <ScalarProperty Name="ep_descripcion" ColumnName="ep_descripcion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="ep_ponderacion" ColumnName="ep_ponderacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enc_resolucion_formulario">
+            <EntityTypeMapping TypeName="Model_general.enc_resolucion_formulario">
+              <MappingFragment StoreEntitySet="enc_resolucion_formulario">
+                <ScalarProperty Name="IdResolucion" ColumnName="IdResolucion" />
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="IdEmpleado_evaluado" ColumnName="IdEmpleado_evaluado" />
+                <ScalarProperty Name="re_fecha" ColumnName="re_fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enc_resolucion_formulario_det">
+            <EntityTypeMapping TypeName="Model_general.enc_resolucion_formulario_det">
+              <MappingFragment StoreEntitySet="enc_resolucion_formulario_det">
+                <ScalarProperty Name="IdResolucion" ColumnName="IdResolucion" />
+                <ScalarProperty Name="secuencia" ColumnName="secuencia" />
+                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+                <ScalarProperty Name="re_ponderacion" ColumnName="re_ponderacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rol_cargo">
+            <EntityTypeMapping TypeName="Model_general.rol_cargo">
+              <MappingFragment StoreEntitySet="rol_cargo">
+                <ScalarProperty Name="IdCargo" ColumnName="IdCargo" />
+                <ScalarProperty Name="rc_codigo" ColumnName="rc_codigo" />
+                <ScalarProperty Name="rc_descripcion" ColumnName="rc_descripcion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rol_empleado">
+            <EntityTypeMapping TypeName="Model_general.rol_empleado">
+              <MappingFragment StoreEntitySet="rol_empleado">
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="re_codigo" ColumnName="re_codigo" />
+                <ScalarProperty Name="re_apellidos" ColumnName="re_apellidos" />
+                <ScalarProperty Name="re_nombres" ColumnName="re_nombres" />
+                <ScalarProperty Name="re_cedula" ColumnName="re_cedula" />
+                <ScalarProperty Name="re_correo" ColumnName="re_correo" />
+                <ScalarProperty Name="re_telefonos" ColumnName="re_telefonos" />
+                <ScalarProperty Name="re_direccion" ColumnName="re_direccion" />
+                <ScalarProperty Name="IdCargo" ColumnName="IdCargo" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rol_empleado_x_correo_x_periodo">
+            <EntityTypeMapping TypeName="Model_general.rol_empleado_x_correo_x_periodo">
+              <MappingFragment StoreEntitySet="rol_empleado_x_correo_x_periodo">
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
+                <ScalarProperty Name="Correo_enviado" ColumnName="Correo_enviado" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_parametros_correo">
+            <EntityTypeMapping TypeName="Model_general.tbl_parametros_correo">
+              <MappingFragment StoreEntitySet="tbl_parametros_correo">
+                <ScalarProperty Name="IdParametros" ColumnName="IdParametros" />
+                <ScalarProperty Name="ep_correo" ColumnName="ep_correo" />
+                <ScalarProperty Name="ep_contrasenia" ColumnName="ep_contrasenia" />
+                <ScalarProperty Name="ep_puerto" ColumnName="ep_puerto" />
+                <ScalarProperty Name="ep_permite_sll" ColumnName="ep_permite_sll" />
+                <ScalarProperty Name="ep_dominio" ColumnName="ep_dominio" />
+                <ScalarProperty Name="ep_observacion" ColumnName="ep_observacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_periodo_evaluacion">
+            <EntityTypeMapping TypeName="Model_general.tbl_periodo_evaluacion">
+              <MappingFragment StoreEntitySet="tbl_periodo_evaluacion">
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="pe_fecha_ini" ColumnName="pe_fecha_ini" />
+                <ScalarProperty Name="pe_fecha_fin" ColumnName="pe_fecha_fin" />
+                <ScalarProperty Name="pe_observacion" ColumnName="pe_observacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="estado_cierre" ColumnName="estado_cierre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_usuario">
+            <EntityTypeMapping TypeName="Model_general.tbl_usuario">
+              <MappingFragment StoreEntitySet="tbl_usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="us_contrasenia" ColumnName="us_contrasenia" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rol_empleado_x_formulario">
+            <EntityTypeMapping TypeName="Model_general.rol_empleado_x_formulario">
+              <MappingFragment StoreEntitySet="rol_empleado_x_formulario">
+                <ScalarProperty Name="ef_calificacion_ponderacion" ColumnName="ef_calificacion_ponderacion" />
+                <ScalarProperty Name="ef_calificacion" ColumnName="ef_calificacion" />
+                <ScalarProperty Name="ef_ponderacion" ColumnName="ef_ponderacion" />
+                <ScalarProperty Name="IdFormulario" ColumnName="IdFormulario" />
+                <ScalarProperty Name="Idempleado_evaluado" ColumnName="Idempleado_evaluado" />
+                <ScalarProperty Name="Idempleado" ColumnName="Idempleado" />
+                <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_cerrar_periodo" FunctionName="Model_general.Store.sp_cerrar_periodo" />
+          <EntitySetMapping Name="enc_resolucion_calificacion">
+            <EntityTypeMapping TypeName="Model_general.enc_resolucion_calificacion">
+              <MappingFragment StoreEntitySet="enc_resolucion_calificacion">
+                <ScalarProperty Name="calificacion_final" ColumnName="calificacion_final" />
+                <ScalarProperty Name="factor_cumplimiento" ColumnName="factor_cumplimiento" />
+                <ScalarProperty Name="Calificacion" ColumnName="Calificacion" />
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_reporte002">
+            <EntityTypeMapping TypeName="Model_general.vw_reporte002">
+              <MappingFragment StoreEntitySet="vw_reporte002">
+                <ScalarProperty Name="calificacion_final" ColumnName="calificacion_final" />
+                <ScalarProperty Name="factor_cumplimiento" ColumnName="factor_cumplimiento" />
+                <ScalarProperty Name="Calificacion" ColumnName="Calificacion" />
+                <ScalarProperty Name="Idempleado_evaluado" ColumnName="Idempleado_evaluado" />
+                <ScalarProperty Name="ef_calificacion_ponderacion" ColumnName="ef_calificacion_ponderacion" />
+                <ScalarProperty Name="ef_calificacion" ColumnName="ef_calificacion" />
+                <ScalarProperty Name="ef_ponderacion" ColumnName="ef_ponderacion" />
+                <ScalarProperty Name="Ponderacion_x_pregunta" ColumnName="Ponderacion_x_pregunta" />
+                <ScalarProperty Name="ep_ponderacion" ColumnName="ep_ponderacion" />
+                <ScalarProperty Name="re_ponderacion" ColumnName="re_ponderacion" />
+                <ScalarProperty Name="ep_descripcion" ColumnName="ep_descripcion" />
+                <ScalarProperty Name="ef_descripcion" ColumnName="ef_descripcion" />
+                <ScalarProperty Name="re_nombres" ColumnName="re_nombres" />
+                <ScalarProperty Name="re_apellidos" ColumnName="re_apellidos" />
+                <ScalarProperty Name="re_codigo" ColumnName="re_codigo" />
+                <ScalarProperty Name="re_cedula" ColumnName="re_cedula" />
+                <ScalarProperty Name="re_nombres_eva" ColumnName="re_nombres_eva" />
+                <ScalarProperty Name="re_apellidos_eva" ColumnName="re_apellidos_eva" />
+                <ScalarProperty Name="re_codigo_eva" ColumnName="re_codigo_eva" />
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_reporte003">
+            <EntityTypeMapping TypeName="Model_general.vw_reporte003">
+              <MappingFragment StoreEntitySet="vw_reporte003">
+                <ScalarProperty Name="ef_calificacion_ponderacion" ColumnName="ef_calificacion_ponderacion" />
+                <ScalarProperty Name="ef_calificacion" ColumnName="ef_calificacion" />
+                <ScalarProperty Name="ef_ponderacion" ColumnName="ef_ponderacion" />
+                <ScalarProperty Name="ef_descripcion" ColumnName="ef_descripcion" />
+                <ScalarProperty Name="emp_evaluado" ColumnName="emp_evaluado" />
+                <ScalarProperty Name="emp_evaluador" ColumnName="emp_evaluador" />
+                <ScalarProperty Name="Idempleado_evaluado" ColumnName="Idempleado_evaluado" />
+                <ScalarProperty Name="Idempleado" ColumnName="Idempleado" />
+                <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="IdRow" ColumnName="IdRow" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

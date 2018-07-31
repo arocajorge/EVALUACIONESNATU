@@ -1,0 +1,71 @@
+﻿@model Info.general.tbl_usuario_Info
+
+
+@{
+    ViewBag.Title = "Modificar";
+}
+
+@if (ViewBag.mensaje != null)
+{
+    <h2>@ViewBag.mensaje</h2>
+}
+
+@using (Html.BeginForm("Modificar", "Account", FormMethod.Post))
+{   
+    <div style="padding-top:30px">
+        @Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "formLayout";
+    settings.EncodeHtml = false;
+    settings.UseDefaultPaddings = true;
+    settings.Width = Unit.Percentage(100);
+
+    var groupItem = settings.Items.AddGroupItem(i =>
+    {
+        i.Caption = "Modificar Usuario";
+        i.SettingsItemHelpTexts.Position = HelpTextPosition.Bottom;
+    });
+    groupItem.Items.Add(m => m.IdUsuario, i =>
+    {
+        i.NestedExtension().TextBox(s => { s.Width = Unit.Percentage(100); s.ReadOnly = true; });
+    });
+    groupItem.Items.Add(m => m.us_contrasenia, i =>
+    {
+        i.NestedExtension().TextBox(s => s.Width = Unit.Percentage(100));
+    });
+    
+
+    groupItem.GroupBoxDecoration = GroupBoxDecoration.Box;
+    groupItem.ShowCaption = DefaultBoolean.True;
+    groupItem.SettingsItems.ShowCaption = DefaultBoolean.True;
+    groupItem.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+    groupItem.SettingsItemCaptions.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+    groupItem.SettingsItemCaptions.VerticalAlign = FormLayoutVerticalAlign.Top;
+
+    groupItem.Items.Add(i =>
+    {
+        i.Caption = "";
+        i.Paddings.PaddingTop = 24;
+        i.SetNestedContent(() =>
+        {
+            Html.DevExpress().Button(b =>
+            {
+                b.Name = "UpdateBtn";
+                b.Text = "Guardar";
+                b.ControlStyle.CssClass = "editFormButton";
+                b.UseSubmitBehavior = true;
+            }).Render();
+            Html.DevExpress().Button(b =>
+            {
+                b.Name = "CancelBtn";
+                b.Text = "Cancelar";
+                b.Style.Add("margin-left", "4px");
+                b.ControlStyle.CssClass = "editFormButton";
+                b.ClientSideEvents.Click = "function(s, e){ document.location='" + DevExpressHelper.GetUrl(new { Controller = "Account", Action = "Index" }) + "'; }";
+            }).Render();
+        });
+    });
+}).GetHtml()
+    </div>
+}
+

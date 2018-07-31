@@ -1,0 +1,55 @@
+@model Info.reportes.tbl_reporte002_Info
+
+@{
+
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "_Resolucion_calificacion_partial";
+        settings.CallbackRouteValues = new { Controller = "Resolucion_calificacion", Action = "Resolucion_calificacion_detalle" ,  IdPeriodo = Model == null ? 0 : Model.IdPeriodo };
+        settings.Width = Unit.Percentage(100);
+
+        settings.Caption = "Calificaciones del Periodo";
+
+        settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.None;
+        settings.SettingsBehavior.AllowSort = false;
+        settings.KeyFieldName = "IdEmpleado";
+
+        settings.CommandColumn.Visible = false;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.SettingsPager.PageSize = 100;
+        settings.SettingsPager.Visible = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "re_nombres_eva";
+            column.Caption = "Evaluado";
+            column.SortIndex = 1;
+        });
+
+        settings.Columns.Add("re_nombres", "Evaluador");
+        settings.Columns.Add("ef_ponderacion","Ponderación formulario");
+        settings.Columns.Add("ep_descripcion","Pregunta");
+        settings.Columns.Add("ep_ponderacion","Ponderación pregunta");
+        settings.Columns.Add("re_ponderacion","Calificación pregunta [0 - 100]");
+        settings.Columns.Add("Ponderacion_x_pregunta","Calificación ponderada");
+
+        settings.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "Ponderacion_x_pregunta").DisplayFormat = "n2";
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(ViewBag.lst_rpt).GetHtml()
+
+

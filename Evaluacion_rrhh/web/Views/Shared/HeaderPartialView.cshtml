@@ -1,0 +1,16 @@
+@model HeaderViewRenderMode
+
+@if(Model == HeaderViewRenderMode.Title) {
+    
+} else { 
+    if(Model == HeaderViewRenderMode.Full) { 
+        <div class="headerTop">
+            <div class="templateTitle">
+                <h2>Evaluación de personal</h2>
+            </div>
+            <div class="loginControl">
+                @Html.Partial("LogOnPartialView")
+            </div>
+        </div>
+    }
+}

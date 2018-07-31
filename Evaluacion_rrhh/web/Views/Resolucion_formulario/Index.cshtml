@@ -1,0 +1,167 @@
+﻿@model  Info.general.enc_resolucion_Info
+@{
+    Layout = null;
+}
+
+
+
+@Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.CardView },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.PivotGrid },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Chart },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Report },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Scheduler },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.RichEdit },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Spreadsheet },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.SpellChecker }
+)
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+    new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new Script { ExtensionSuite = ExtensionSuite.GridView },
+    new Script { ExtensionSuite = ExtensionSuite.CardView },
+    new Script { ExtensionSuite = ExtensionSuite.PivotGrid },
+    new Script { ExtensionSuite = ExtensionSuite.Editors },
+    new Script { ExtensionSuite = ExtensionSuite.Chart },
+    new Script { ExtensionSuite = ExtensionSuite.Report },
+    new Script { ExtensionSuite = ExtensionSuite.Scheduler },
+    new Script { ExtensionSuite = ExtensionSuite.TreeList },
+    new Script { ExtensionSuite = ExtensionSuite.RichEdit },
+    new Script { ExtensionSuite = ExtensionSuite.Spreadsheet },
+    new Script { ExtensionSuite = ExtensionSuite.SpellChecker }
+)
+
+
+@{
+    ViewBag.Title = "Resolver evaluación";
+}
+
+@if (ViewBag.mensaje != null)
+{
+    <h2>@ViewBag.mensaje</h2>
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluación</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link href="~/Content/css/style_resolver_evaluacion.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="~/Content/Imagenes/logo.png" />
+</head>
+<body class="tipografia-letra-varela tipografia-color-azul tipografia-tamanio-mediano">
+    <img src="~/Content/Images/fondo.png" id="bg" alt="">
+    <div class="wrapper-resolucion">        
+
+        @using (Html.BeginForm("Index", "Resolucion_formulario", FormMethod.Post, new { @class = "login", @id = "frmevaluacion" }))
+        {
+            @Html.AntiForgeryToken();
+            int secuencia = 0;
+            if (Model != null)
+            {
+                <div class="titulos-centrados">
+                    <img src="~/Content/Imagenes/logo_naturissimo.png" alt="Image" style="max-width:100%; text-align:center" />
+                </div>
+
+                <p class="titulos-centrados">
+
+                    Califique del [0-100], de acuerdo a lo preguntado
+
+                </p>
+                <br />
+
+                for (int emp = 0; emp < Model.lista_resoluccion.Count; emp++)
+                {
+                    @Html.HiddenFor(m => Model.lista_resoluccion[emp].IdEmpleado)
+                    @Html.HiddenFor(m => Model.lista_resoluccion[emp].IdEmpleado_evaluado)
+                    @Html.HiddenFor(m => Model.lista_resoluccion[emp].IdFormulario)
+                    @Html.HiddenFor(m => Model.lista_resoluccion[emp].IdPeriodo)
+
+                    @Html.HiddenFor(m => Model.lista_resoluccion[emp].re_apellidos)
+                    @Html.HiddenFor(m => Model.lista_resoluccion[emp].re_nombres)
+                    <div class="form-group">
+                        <p class="titulos-centrados">
+                            <strong> @Html.LabelFor(m => Model.lista_resoluccion[emp].re_nombres, Model.lista_resoluccion[emp].re_nombres)</strong>
+                        </p>
+                    </div>
+                    <br />
+
+                    if (Model.lista_resoluccion[emp].lista != null)
+                    {
+                        for (int preguntas = 0; preguntas < Model.lista_resoluccion[emp].lista.Count; preguntas++)
+                        {
+                            secuencia++;
+                            @Html.HiddenFor(m => Model.lista_resoluccion[emp].lista[preguntas].IdPregunta)
+                            @Html.HiddenFor(m => Model.lista_resoluccion[emp].lista[preguntas].ep_descripcion)
+                            <div class="form-group">
+                                
+                                    @Html.LabelFor(m => Model.lista_resoluccion[emp].lista[preguntas].ep_descripcion, Model.lista_resoluccion[emp].lista[preguntas].ep_descripcion)
+                                
+                                @if (preguntas < Model.lista_resoluccion[emp].lista.Count)
+                                {
+                                    <br />
+                                }
+
+                                @Html.DevExpress().FormLayout(settings =>
+                           {
+                               settings.Name = "FormLayout" + secuencia.ToString() + Model.lista_resoluccion[emp].IdEmpleado.ToString();
+                               settings.Width = Unit.Percentage(100);
+                               var groupItem = settings.Items.AddGroupItem(groupSettings =>
+                               {
+                                   groupSettings.Width = Unit.Percentage(100);
+                                   groupSettings.Caption = "Ponderación";
+                                   groupSettings.GroupBoxDecoration = GroupBoxDecoration.None;
+                                   groupSettings.RowSpan = 10;
+                                   groupSettings.ColCount = 10;
+
+                                   groupSettings.Items.Add(m => Model.lista_resoluccion[emp].lista[preguntas].re_ponderacion, s =>
+                                   {
+                                       s.ShowCaption = DefaultBoolean.False;
+                                       s.Width = Unit.Percentage(100);
+                                       s.NestedExtensionType = FormLayoutNestedExtensionItemType.TrackBar;
+                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.Step = 1;
+                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.MinValue = 0;
+                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.MaxValue = 100;
+                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.ScalePosition = ScalePosition.RightOrBottom;
+                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.SmallTickFrequency = 5;
+                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.LargeTickInterval = 10;
+                                       s.NestedExtensionSettings.Width = Unit.Percentage(100);
+                                   });
+                               });
+                           }).GetHtml()
+
+                            </div>
+                        }
+
+                    }
+                    <br /><br /><br />
+                }
+
+            }
+
+            <button type="submit" name="enviar" value="Aceptar" class="button  search" onclick="pregunta();" id="btnguardar">Aceptar</button>
+
+                <script language="JavaScript">
+
+                    function pregunta() {
+                        if (confirm('¿Estas seguro enviar la evaluación?')) {
+                            btnguardar.disabled = false;
+                            document.getElementById("frmevaluacion").submit();
+
+                        }
+                    }
+                </script>
+        }
+    </div>
+
+</body>
+
+</html>

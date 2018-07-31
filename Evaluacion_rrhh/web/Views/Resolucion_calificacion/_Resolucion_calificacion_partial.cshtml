@@ -1,0 +1,39 @@
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "_Resolucion_calificacion_partial";
+        settings.CallbackRouteValues = new { Controller = "Resolucion_calificacion", Action = "Resolucion_calificacion", Model=Model };
+        settings.Width = Unit.Percentage(100);
+
+        settings.Caption = "Calificaciones del Periodo";
+
+        settings.Settings.GridLines = System.Web.UI.WebControls.GridLines.None;
+
+        settings.KeyFieldName = "IdEmpleado";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+
+        settings.Columns.Add("re_codigo");
+        settings.Columns.Add("re_apellidos");
+        settings.Columns.Add("re_nombres");
+        settings.Columns.Add("re_cedula");
+        settings.Columns.Add("Calificacion", "Resultado");
+        settings.Columns.Add("factor_cumplimiento", "Cumplimiento").ColumnType = MVCxGridViewColumnType.CheckBox;
+        settings.Columns.Add("calificacion_final", "Calificación final");
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

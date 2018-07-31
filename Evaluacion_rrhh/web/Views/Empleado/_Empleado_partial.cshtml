@@ -1,0 +1,73 @@
+﻿
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView_empleado";
+        settings.CallbackRouteValues = new { Controller = "Empleado", Action = "GetList" };
+        settings.Width = Unit.Percentage(100);
+        settings.KeyFieldName = "IdEmpleado";
+
+        settings.CommandColumn.Visible = false;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.SettingsPager.PageSize = 20;
+        settings.SettingsPager.Visible = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.HideDataCells;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 10;
+
+        settings.Columns.Add(c =>
+        {
+            c.Caption = "#";
+            c.SetDataItemTemplateContent(tc =>
+            {
+                ViewContext.Writer.Write(
+                Html.ActionLink("Modificar", "Modificar", new { IdEmpleado = DataBinder.Eval(tc.DataItem, "IdEmpleado") }) + "&nbsp;" +
+            Html.ActionLink("Anular", "Anular", new { IdEmpleado = DataBinder.Eval(tc.DataItem, "IdEmpleado") }, new { onclick = "return confirm('¿Está seguro de que desea anular el registro?')" })
+                );
+            });
+            c.SetHeaderTemplateContent(tc =>
+            {
+                ViewContext.Writer.Write(
+                    Html.ActionLink("Nuevo", "Nuevo").ToHtmlString()
+                );
+            });
+            c.Settings.AllowDragDrop = DefaultBoolean.False;
+            c.Settings.AllowSort = DefaultBoolean.False;
+            c.Width = 70;
+        });
+        settings.Columns.Add("re_codigo").Width = Unit.Percentage(10);
+        settings.Columns.Add("re_apellidos");
+        settings.Columns.Add("re_nombres");
+        settings.Columns.Add("re_cedula");
+        settings.Columns.Add("re_correo");
+        settings.Columns.Add("re_telefonos");
+        settings.Columns.Add("re_direccion");
+
+        settings.Columns.Add(c =>
+        {
+            c.Caption = "#";
+            c.SetDataItemTemplateContent(tc =>
+            {
+                ViewContext.Writer.Write(
+                Html.ActionLink("Test Correo", "TestCorreo", new { IdEmpleado = DataBinder.Eval(tc.DataItem, "IdEmpleado") }) + "&nbsp;"
+
+                );
+            });
+            c.Settings.AllowDragDrop = DefaultBoolean.False;
+            c.Settings.AllowSort = DefaultBoolean.False;
+            c.Width = Unit.Pixel(100);
+        });
+
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

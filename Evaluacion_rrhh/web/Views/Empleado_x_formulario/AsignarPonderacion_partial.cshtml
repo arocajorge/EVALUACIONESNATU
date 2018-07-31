@@ -1,0 +1,113 @@
+﻿@model Info.general.rol_empleado_x_formulario_Info
+
+
+
+@{
+    ViewBag.Title = "Asignación ponderación";
+}
+
+@if (ViewBag.mensaje != null)
+{
+    <h2>@ViewBag.mensaje</h2>
+}
+
+<link href="~/Content/css/style_resolver_evaluacion.css" rel="stylesheet" />
+
+<p>
+    @Html.ActionLink("Volver asignación", "Index")
+</p>
+
+
+@using (Html.BeginForm())
+{  @Html.AntiForgeryToken()
+    <div>
+        <table class="table" style="width:100%; border:1px;" id="customers">
+            <tr>
+                <th>
+                    Codigo
+                </th>
+                <th>
+                    Empleado evaluador
+                </th>
+                <th>
+                    Formulario
+                </th>
+                <th>
+                    Ponderación
+                </th>
+            </tr>
+            @for (int i = 0; i < Model.lista_emp_x_form.Count; i++)
+            {
+                @Html.HiddenFor(m => m.lista_emp_x_form[i].re_codigo)
+                @Html.HiddenFor(m => m.lista_emp_x_form[i].re_codigo_ev)
+                @Html.HiddenFor(m => m.lista_emp_x_form[i].re_apellidos_ev)
+                @Html.HiddenFor(m => m.lista_emp_x_form[i].re_nombres_ev)
+                @Html.HiddenFor(m => m.lista_emp_x_form[i].re_nombre_completo_ev)
+                @Html.HiddenFor(m => m.lista_emp_x_form[i].formulario_ev)
+                @Html.HiddenFor(m => m.lista_emp_x_form[i].Idempleado)
+                @Html.HiddenFor(m => m.lista_emp_x_form[i].Idempleado_evaluado)
+                @Html.HiddenFor(m => m.lista_emp_x_form[i].IdFormulario)
+                @Html.HiddenFor(m => m.lista_emp_x_form[i].Secuancia)
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => m.lista_emp_x_form[i].re_codigo_ev)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.lista_emp_x_form[i].re_nombre_completo_ev)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.lista_emp_x_form[i].formulario_ev)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m=> m.lista_emp_x_form[i].ef_ponderacion, new { @class = "sumar", @onchange = "sumar();" })                        
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                   
+                </td>
+                <td>
+                    
+                </td>
+                <td>
+                    
+                </td>
+                <td>
+                    <input type="text" readonly="readonly" id="txt_total" tabindex="-1"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+        <div>
+            @Html.DevExpress().FormLayout(settings =>
+       {
+           settings.Name = "FAcciones";
+           settings.Items.Add(b =>
+           {
+               b.ShowCaption = DefaultBoolean.False;
+               b.NestedExtension().Button(o =>
+               {
+                   o.Name = "btnBoton";
+                   o.UseSubmitBehavior = true;
+                   o.Text = "Aceptar";
+               });
+           });
+       }).GetHtml()
+        </div>     
+}
+<script type="text/javascript">
+    function sumar() {
+        var sum = 0;
+        $('.sumar').each(function () {
+            sum += parseFloat(this.value);
+        });
+        $('#txt_total').val(sum);
+        console.log(sum);
+    }
+
+    window.onload = function () {
+        sumar();
+    }
+</script>

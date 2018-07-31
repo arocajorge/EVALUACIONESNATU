@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "ImportEmpleados";
+}
+@using (Html.BeginForm("Importarempleados", "Empleado", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <label class="text-info">Buscar File</label>
+    <input type="file" class="form-control" name="uploadfile" id="uploadfile" />
+    <input type="submit" value="Subir empleados" class="btn btn-default" />
+}
+<h2>Importar empleados</h2>
+
+
+
+
+
+
+
+

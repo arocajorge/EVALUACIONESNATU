@@ -1,0 +1,19 @@
+﻿@model List<Info.general.rol_empleado_x_formulario_Info>
+
+@{
+    ViewBag.Title = "Asignar";
+}
+
+
+@Html.Action("GridViewPartial_det", new {  IdEmpleado = ViewBag.IdEmpleado })
+
+@Html.DevExpress().Button(settings =>
+{
+    settings.Name = "btnVolver";
+    settings.Text = "Volver";
+    settings.UseSubmitBehavior = false;
+    settings.ClientSideEvents.Click = "function(s, e){ document.location='" + DevExpressHelper.GetUrl(new { Controller = "Empleado_x_formulario", Action = "Index" }) + "'; }";
+}).GetHtml()
+
+
+

@@ -1,0 +1,73 @@
+@model Info.general.rol_empleado_x_formulario_Info
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView_noConformidad";
+        settings.CallbackRouteValues = new { Controller = "Empleado_x_formulario", Action = "empleado_x_formulario_Partial" };
+        settings.Width = Unit.Percentage(100);
+        settings.KeyFieldName = "IdEmpleado";
+
+        settings.CommandColumn.Visible = false;
+        settings.Settings.ShowGroupPanel = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.Settings.ShowHeaderFilterButton = true;
+        //settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.HideDataCells;
+        //settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        //settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        //settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        //settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 500;
+
+        //Configuración scrolling y pager        
+        settings.Settings.VerticalScrollBarMode = ScrollBarMode.Visible;
+        settings.Settings.VerticalScrollableHeight = 400;
+        settings.SettingsPager.Visible = true;
+        settings.SettingsPager.PageSize = 10000;
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowPager;
+        settings.SettingsPager.AlwaysShowPager = true;
+        //Configuración filtro por columna
+        settings.Settings.AutoFilterCondition = AutoFilterCondition.BeginsWith;
+        settings.Settings.ShowFilterRow = true;
+        settings.Settings.ShowHeaderFilterButton = true;
+
+        settings.Columns.Add("num_empleado_asignados", "Evalua").Width = Unit.Percentage(5);
+        settings.Columns.Add("num_emo_lo_evaluan", "Lo evaluan").Width = Unit.Percentage(7);
+        settings.Columns.Add("sum_ponderacion", "Ponderación").Width = Unit.Percentage(7);
+        settings.Columns.Add("re_codigo","Codigo").Width = Unit.Percentage(4);
+        settings.Columns.Add("re_cedula","Cédula").Width = Unit.Percentage(7);
+        settings.Columns.Add("re_apellidos","Apellidos").Width = Unit.Percentage(30);
+        settings.Columns.Add("re_nombres","Nombres").Width = Unit.Percentage(30);
+        settings.Columns.Add(c =>
+        {
+            c.Caption = "#";
+            c.SetDataItemTemplateContent(tc =>
+            {
+                ViewContext.Writer.Write(
+                Html.ActionLink("Asignar", "Asignar", new { IdEmpleado = DataBinder.Eval(tc.DataItem, "IdEmpleado") }) + "&nbsp;"
+
+                );
+            });
+            c.Settings.AllowDragDrop = DefaultBoolean.False;
+            c.Settings.AllowSort = DefaultBoolean.False;
+            c.Width = Unit.Pixel(100);
+        });
+
+        settings.Columns.Add(c =>
+        {
+            c.Caption = "#";
+            c.SetDataItemTemplateContent(tc =>
+            {
+                ViewContext.Writer.Write(
+                Html.ActionLink("Ponderar", "AsignarPonderacion_partial", new { IdEmpleado = DataBinder.Eval(tc.DataItem, "IdEmpleado") }) + "&nbsp;"
+
+                );
+            });
+            c.Settings.AllowDragDrop = DefaultBoolean.False;
+            c.Settings.AllowSort = DefaultBoolean.False;
+            c.Width = Unit.Pixel(100);
+        });
+
+    });
+}
+@grid.Bind(Model.lista).GetHtml()

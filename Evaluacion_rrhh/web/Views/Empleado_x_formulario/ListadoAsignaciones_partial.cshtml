@@ -1,0 +1,38 @@
+@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "ListadoAsignaciones_partial";
+        settings.CallbackRouteValues = new { Controller = "Empleado_x_formulario", Action = "ListadoAsignaciones" };
+
+       
+        settings.KeyFieldName = "Idempleado";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+
+        settings.Columns.Add("re_codigo", "Codigo [evaluador]").Width = Unit.Percentage(5);
+        settings.Columns.Add("re_apellidos", "Apellidos [evaluador]").Width = Unit.Percentage(20);
+        settings.Columns.Add("re_nombres", "Nombres [evaluador]");
+
+        settings.Columns.Add("re_codigo_ev", "Codigo [evaluado]");
+        settings.Columns.Add("re_apellidos_ev", "Apellidos [evaluado]");
+        settings.Columns.Add("re_nombres_ev", "Nombres [evaluado]");
+        settings.Columns.Add("formulario_ev", "Formulario");
+
+    });
+
+
+
+
+
+   
+}
+@grid.Bind(Model).GetHtml()

@@ -1,0 +1,77 @@
+﻿@model Info.general.rol_empleado_x_formulario_Info
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+
+        
+
+        settings.Name = "lst_det";
+        settings.CallbackRouteValues = new { Controller = "Empleado_x_formulario", Action = "empleado_x_formulario_Partial_det", IdEmpleado = Model == null ? 0 : Model.IdEmpleado };
+        settings.Width = Unit.Percentage(100);
+        settings.KeyFieldName = "IdEmpleado";
+
+        settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Empleado_x_formulario", Action = "EditingAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Empleado_x_formulario", Action = "EditingUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Empleado_x_formulario", Action = "EditingDelete" };
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.HideDataCells;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 500;
+
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "IdEmpleado";
+            column.Visible = false;
+
+            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+            comboBoxProperties.DataSource = ViewBag.listaempleado;
+            comboBoxProperties.TextField = "re_apellidos";
+            comboBoxProperties.ValueField = "IdEmpleado";
+            comboBoxProperties.Columns.Add("re_codigo", "Codigo");
+            comboBoxProperties.Columns.Add("re_cedula", "Cédula");
+            comboBoxProperties.Columns.Add("re_apellidos", "Apellidos");
+            comboBoxProperties.Columns.Add("re_nombres", "Nombres");
+
+            comboBoxProperties.ValueType = typeof(int);
+            column.Width = 200;
+        });
+
+        
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "IdFormulario";
+            column.Visible = false;
+
+            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+            comboBoxProperties.DataSource = ViewBag.listaempleado;
+            comboBoxProperties.TextField = "ef_descripcion";
+            comboBoxProperties.ValueField = "IdFormulario";
+            comboBoxProperties.Columns.Add("ef_codigo", "Codigo");
+            comboBoxProperties.Columns.Add("ef_descripcion", "Descripcion");
+
+            comboBoxProperties.ValueType = typeof(int);
+            column.Width = 200;
+        });
+
+        
+    });
+}
+@grid.Bind(Model).GetHtml()
