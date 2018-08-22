@@ -329,6 +329,8 @@ namespace Data.general
                                              on q.IdFormulario equals formulario.IdFormulario
                                              where q.Idempleado_evaluado == IdEmpleado
                                              && q.IdPeriodo == IdPeriodo
+                                             && formulario.estado==true
+                                             &&formulario.IdPeriodo==IdPeriodo
                                              select new rol_empleado_x_formulario_Info
                                              {
                                                  Idempleado = q.Idempleado,
