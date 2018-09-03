@@ -31,7 +31,7 @@ namespace Web.Controllers
             }
         }
         [ValidateInput(false)]
-        public ActionResult GridViewPartial_preguntas(int IdFormulario = 0)
+        public ActionResult GridViewPartial_preguntas(int IdFormulario = 0, int IdPEriodo=0)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Web.Controllers
                     return PartialView("_GridViewPartial_preguntas");
 
                 List<enc_formulario_pregunta_Info> list_preguntas = new List<enc_formulario_pregunta_Info>();
-                list_preguntas = pregunta_data.get_list(IdFormulario);
+                list_preguntas = pregunta_data.get_list(IdFormulario, IdPEriodo);
                 ViewBag.IdFormulario = IdFormulario;
                 return PartialView("_GridViewPartial_preguntas", list_preguntas);
             }

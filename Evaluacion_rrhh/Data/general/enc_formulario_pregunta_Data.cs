@@ -181,7 +181,7 @@ namespace Data.general
             }
         }
 
-        public List<enc_formulario_pregunta_Info> get_list( decimal IdFormulario)
+        public List<enc_formulario_pregunta_Info> get_list( decimal IdFormulario, int IdPEriodo)
         {
             try
             {
@@ -191,6 +191,7 @@ namespace Data.general
                     lista = (from q in Context.enc_formulario_pregunta
                              where q.IdFormulario == IdFormulario
                              && q.estado == true
+                             && q.IdPeriodo==IdPEriodo
                              select new enc_formulario_pregunta_Info
                              {
                                  IdFormulario = q.IdFormulario,

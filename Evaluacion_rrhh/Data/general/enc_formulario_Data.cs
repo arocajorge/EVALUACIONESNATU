@@ -185,7 +185,7 @@ namespace Data.general
                     enc_formulario_pregunta_Data data_p = new enc_formulario_pregunta_Data();
                     foreach (var item in Lista)
                     {
-                        item.listaPreguntas = data_p.get_list(item.IdFormulario);
+                        item.listaPreguntas = data_p.get_list(item.IdFormulario, item.IdPeriodo);
                     }
                 }
 

@@ -49,8 +49,10 @@
                 Html.DevExpress().HyperLink(hyperlink =>
                 {
                     var keyValue = DataBinder.Eval(container.DataItem, "IdFormulario");
+                    var IdPEriodo = DataBinder.Eval(container.DataItem, "IdPEriodo");
+
                     hyperlink.Properties.Text = "Preguntas";
-                    hyperlink.NavigateUrl = Url.Action("Index", "Formulario_pregunta", new { IdFormulario = keyValue });
+                    hyperlink.NavigateUrl = Url.Action("Index", "Formulario_pregunta", new { IdFormulario = keyValue, IdPEriodo= IdPEriodo });
                 }).Render();
             });
         });
