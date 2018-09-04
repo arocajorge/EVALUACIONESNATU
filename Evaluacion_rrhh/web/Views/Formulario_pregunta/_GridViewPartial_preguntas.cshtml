@@ -1,7 +1,7 @@
 @{
     var grid = Html.DevExpress().GridView(settings => {
         settings.Name = "GridView_preguntas";
-        settings.CallbackRouteValues = new { Controller = "Formulario_pregunta", Action = "GridViewPartial_preguntas" ,  IdFormulario=ViewBag.IdFormulario  };
+        settings.CallbackRouteValues = new { Controller = "Formulario_pregunta", Action = "GridViewPartial_preguntas" ,  IdFormulario=ViewBag.IdFormulario ,IdPeriodo= ViewBag.IdPeriodo };
         settings.Width = Unit.Percentage(100);
         settings.KeyFieldName = "IdPregunta";
         settings.SettingsPager.PageSize = 10;

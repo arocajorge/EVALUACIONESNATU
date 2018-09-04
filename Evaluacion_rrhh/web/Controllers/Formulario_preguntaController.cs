@@ -14,14 +14,15 @@ namespace Web.Controllers
         enc_formulario_Data formulario_data = new enc_formulario_Data();
         tbl_periodo_evaluacion_Info info_periodo = new tbl_periodo_evaluacion_Info();
         tbl_periodo_evaluacion_Data data_periodo = new tbl_periodo_evaluacion_Data();
-         public ActionResult Index(int IdFormulario = 0)
+         public ActionResult Index(int IdFormulario = 0, int IdPeriodo=0)
         {
             try
             {
-                if (IdFormulario == 0)
+                if (IdFormulario == 0| IdPeriodo == 0)
                     return RedirectToAction("Index", "Formulario");
-
                 ViewBag.IdFormulario = IdFormulario;
+
+                ViewBag.IdPeriodo = IdPeriodo;
                 return View();
             }
             catch (Exception)
@@ -31,7 +32,7 @@ namespace Web.Controllers
             }
         }
         [ValidateInput(false)]
-        public ActionResult GridViewPartial_preguntas(int IdFormulario = 0, int IdPEriodo=0)
+        public ActionResult GridViewPartial_preguntas(int IdFormulario = 0, int IdPeriodo=0)
         {
             try
             {
@@ -39,8 +40,10 @@ namespace Web.Controllers
                     return PartialView("_GridViewPartial_preguntas");
 
                 List<enc_formulario_pregunta_Info> list_preguntas = new List<enc_formulario_pregunta_Info>();
-                list_preguntas = pregunta_data.get_list(IdFormulario, IdPEriodo);
+                list_preguntas = pregunta_data.get_list(IdFormulario, IdPeriodo);
                 ViewBag.IdFormulario = IdFormulario;
+                ViewBag.IdPeriodo = IdPeriodo;
+
                 return PartialView("_GridViewPartial_preguntas", list_preguntas);
             }
             catch (Exception)
