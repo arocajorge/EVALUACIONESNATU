@@ -77,19 +77,17 @@ namespace web.Controllers
             ViewBag.IdPeriodo = IdPeriodo;
             return PartialView("_GridViewPartial", model);
         }
-        public ActionResult Resolucion_calificacion(tbl_reporte001_Info Model)
+        public ActionResult Resolucion_calificacion(int IdPeriodo = 0)
         {
             try
-            {if (Model == null)
-                    Model = new tbl_reporte001_Info();
+            {
+               
 
-                int IdPeriodo = 0;
                 tbl_reporte001_Data odata = new tbl_reporte001_Data();
                 List<tbl_reporte001_Info> lista = new List<tbl_reporte001_Info>();
-                if (Model.IdPeriodo != 0)
+                if (IdPeriodo != 0)
                 {
-                    lista = odata.GetRpt001(Convert.ToInt32(Model.IdPeriodo));
-                    IdPeriodo = Model.IdPeriodo;
+                    lista = odata.GetRpt001(Convert.ToInt32(IdPeriodo));
                 }
                 else
                 {

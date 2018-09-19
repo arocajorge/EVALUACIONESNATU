@@ -3,7 +3,7 @@
     var grid = Html.DevExpress().GridView(settings =>
     {
         settings.Name = "_Resolucion_calificacion_partial";
-        settings.CallbackRouteValues = new { Controller = "Resolucion_calificacion", Action = "Resolucion_calificacion", Model=Model };
+        settings.CallbackRouteValues = new { Controller = "Resolucion_calificacion", Action = "Resolucion_calificacion", IdPeriodo=ViewBag.IdPeriodo };
         settings.Width = Unit.Percentage(100);
 
         settings.Caption = "Calificaciones del Periodo";
