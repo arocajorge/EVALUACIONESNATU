@@ -342,7 +342,8 @@ namespace Data.general
                                                  re_apellidos_ev = empleado.re_apellidos,
                                                  re_nombres_ev = empleado.re_nombres,
                                                  re_nombre_completo_ev = empleado.re_apellidos + " " + empleado.re_nombres,
-                                                 formulario_ev = formulario.ef_descripcion
+                                                 formulario_ev = formulario.ef_descripcion,
+                                                 IdPeriodo = formulario.IdPeriodo
                                              }
 
                         ).ToList();
@@ -363,11 +364,14 @@ namespace Data.general
             {
                 using (Entities_general Context = new Entities_general())
                 {
-                    var Entity = Context.rol_empleado_x_formulario.Where(v => v.Idempleado == info.Idempleado && v.Secuencia == info.Secuancia && v.Idempleado_evaluado==info.Idempleado_evaluado).FirstOrDefault();
+                    var Entity = Context.rol_empleado_x_formulario.Where(v => v.Idempleado == info.Idempleado && v.Secuencia == info.Secuancia && v.Idempleado_evaluado==info.Idempleado_evaluado && v.IdPeriodo == info.IdPeriodo).FirstOrDefault();
                     if (Entity != null)
                     {
                         Entity.ef_ponderacion = info.ef_ponderacion;
                         Context.SaveChanges();
+                    }else
+                    {
+
                     }
 
                 }

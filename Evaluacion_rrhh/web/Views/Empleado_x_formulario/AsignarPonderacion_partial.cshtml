@@ -20,6 +20,7 @@
 
 @using (Html.BeginForm())
 {  @Html.AntiForgeryToken()
+    @Html.HiddenFor(q=>q.IdPeriodo)
     <div>
         <table class="table" style="width:100%; border:1px;" id="customers">
             <tr>
@@ -48,6 +49,7 @@
                 @Html.HiddenFor(m => m.lista_emp_x_form[i].Idempleado_evaluado)
                 @Html.HiddenFor(m => m.lista_emp_x_form[i].IdFormulario)
                 @Html.HiddenFor(m => m.lista_emp_x_form[i].Secuancia)
+                @Html.HiddenFor(m => m.lista_emp_x_form[i].IdPeriodo)
                 <tr>
                     <td>
                         @Html.DisplayFor(m => m.lista_emp_x_form[i].re_codigo_ev)
