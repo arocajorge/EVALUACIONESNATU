@@ -217,7 +217,7 @@ namespace Data.general
                     smtp.Send(mail);
 
                     // Guardar envio de Correo
-                    infocorreo.IdEmpleado = item.IdPeriodo;
+                    infocorreo.IdPeriodo = item.IdPeriodo;
                     infocorreo.IdEmpleado = item.IdEmpleado;
                     infocorreo.Secuencia = sec;
                     infocorreo.Correo_enviado = true;

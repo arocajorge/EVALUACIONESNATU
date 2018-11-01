@@ -240,6 +240,7 @@ namespace Web.Controllers
                     {
                         info_empleado.fechaI = info_periodo.pe_fecha_ini;
                         info_empleado.fechaF = info_periodo.pe_fecha_fin;
+                        info_empleado.IdPeriodo = info_periodo.IdPeriodo;
                         odata_correo.EnviarCorreo(info_empleado);
                     }
                 }
