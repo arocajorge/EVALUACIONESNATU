@@ -19,7 +19,7 @@ namespace Data
         public decimal IdPregunta { get; set; }
         public Nullable<double> re_ponderacion { get; set; }
     
-        public virtual enc_formulario_pregunta enc_formulario_pregunta { get; set; }
         public virtual enc_resolucion_formulario enc_resolucion_formulario { get; set; }
+        public virtual enc_formulario_pregunta enc_formulario_pregunta { get; set; }
     }
 }

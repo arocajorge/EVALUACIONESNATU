@@ -76,8 +76,8 @@ namespace Data.general
                                          {
                                              IdPregunta = preg.IdPregunta,
                                              ep_descripcion = preg.ep_descripcion,
-                                             re_ponderacion = 0,
-                                             
+                                             re_ponderacion = preg.ep_calificacion ?? 0,
+                                             ep_calificacion = preg.ep_calificacion
                                              }).ToList()
 
                              }

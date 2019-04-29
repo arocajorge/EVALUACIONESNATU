@@ -26,6 +26,7 @@ namespace Data
         public string ep_descripcion { get; set; }
         public bool estado { get; set; }
         public double ep_ponderacion { get; set; }
+        public Nullable<double> ep_calificacion { get; set; }
     
         public virtual enc_formulario enc_formulario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

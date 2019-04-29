@@ -121,16 +121,17 @@
                                    groupSettings.GroupBoxDecoration = GroupBoxDecoration.None;
                                    groupSettings.RowSpan = 10;
                                    groupSettings.ColCount = 10;
-
+                                   
                                    groupSettings.Items.Add(m => Model.lista_resoluccion[emp].lista[preguntas].re_ponderacion, s =>
                                    {
                                        s.ShowCaption = DefaultBoolean.False;
                                        s.Width = Unit.Percentage(100);
                                        s.NestedExtensionType = FormLayoutNestedExtensionItemType.TrackBar;
-                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.Step = 1;
-                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.MinValue = 0;
-                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.MaxValue = 100;
-                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.ScalePosition = ScalePosition.RightOrBottom;
+                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.ScalePosition = ScalePosition.LeftOrTop;
+                                       
+                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.MinValue = Model.lista_resoluccion[emp].lista[preguntas].ep_calificacion == null ? 0 : Convert.ToDecimal(Model.lista_resoluccion[emp].lista[preguntas].ep_calificacion);                                       
+                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.MaxValue = Model.lista_resoluccion[emp].lista[preguntas].ep_calificacion == null ? 100 : Convert.ToDecimal(Model.lista_resoluccion[emp].lista[preguntas].ep_calificacion);
+                                       ((TrackBarSettings)s.NestedExtensionSettings).Properties.Step = Model.lista_resoluccion[emp].lista[preguntas].ep_calificacion == null ? 1 : Convert.ToDecimal(Model.lista_resoluccion[emp].lista[preguntas].ep_calificacion);
                                        ((TrackBarSettings)s.NestedExtensionSettings).Properties.SmallTickFrequency = 5;
                                        ((TrackBarSettings)s.NestedExtensionSettings).Properties.LargeTickInterval = 10;
                                        s.NestedExtensionSettings.Width = Unit.Percentage(100);
@@ -153,9 +154,8 @@
 
                     function pregunta() {
                         if (confirm('¿Estas seguro enviar la evaluación?')) {
-                            btnguardar.disabled = false;
+                            $("#btnguardar").attr("disabled", true);
                             document.getElementById("frmevaluacion").submit();
-
                         }
                     }
                 </script>

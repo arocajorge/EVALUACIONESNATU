@@ -48,6 +48,10 @@
        {
            i.NestedExtension().TextBox(s => s.Width = Unit.Percentage(100));
        });
+       groupItem.Items.Add(m => m.ep_calificacion, i =>
+       {
+           i.NestedExtension().TextBox(s => s.Width = Unit.Percentage(100));
+       });
        groupItem.GroupBoxDecoration = GroupBoxDecoration.Box;
        groupItem.ShowCaption = DefaultBoolean.True;
        groupItem.SettingsItems.ShowCaption = DefaultBoolean.True;

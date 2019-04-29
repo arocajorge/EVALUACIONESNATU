@@ -14,6 +14,6 @@ namespace Info.general
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Count must be a natural number")]
         public Nullable<double> re_ponderacion { get; set; }
         public string ep_descripcion { get; set; }
-
+        public double? ep_calificacion { get; set; }
     }
 }

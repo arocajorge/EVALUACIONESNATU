@@ -26,6 +26,7 @@
           <Property Name="ep_descripcion" Type="varchar" MaxLength="1000" Nullable="false" />
           <Property Name="estado" Type="bit" Nullable="false" />
           <Property Name="ep_ponderacion" Type="float" Nullable="false" />
+          <Property Name="ep_calificacion" Type="float" />
         </EntityType>
         <EntityType Name="enc_resolucion_calificacion">
           <Key>
@@ -475,22 +476,9 @@ advertencia 6002: La tabla o vista 'DB_EVALUACION_RRHH.dbo.vw_reporte003' no tie
           <Property Name="ef_codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ef_descripcion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="enc_formulario_pregunta" Relationship="Self.FK_enc_formulario_pregunta_enc_formulario" FromRole="enc_formulario" ToRole="enc_formulario_pregunta" />
           <NavigationProperty Name="tbl_periodo_evaluacion" Relationship="Self.FK_enc_formulario_tbl_periodo_evaluacion" FromRole="enc_formulario" ToRole="tbl_periodo_evaluacion" />
           <NavigationProperty Name="rol_empleado_x_formulario" Relationship="Model_general.FK_rol_empleado_x_formulario_enc_formulario" FromRole="enc_formulario" ToRole="rol_empleado_x_formulario" />
-        </EntityType>
-        <EntityType Name="enc_formulario_pregunta">
-          <Key>
-            <PropertyRef Name="IdPregunta" />
-          </Key>
-          <Property Name="IdPregunta" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
-          <Property Name="IdFormulario" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="ep_descripcion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="estado" Type="Boolean" Nullable="false" />
-          <Property Name="ep_ponderacion" Type="Double" Nullable="false" />
-          <NavigationProperty Name="enc_formulario" Relationship="Self.FK_enc_formulario_pregunta_enc_formulario" FromRole="enc_formulario_pregunta" ToRole="enc_formulario" />
-          <NavigationProperty Name="enc_resolucion_formulario_det" Relationship="Self.FK_enc_resolucion_formulario_det_enc_formulario_pregunta" FromRole="enc_formulario_pregunta" ToRole="enc_resolucion_formulario_det" />
+          <NavigationProperty Name="enc_formulario_pregunta" Relationship="Model_general.FK_enc_formulario_pregunta_enc_formulario" FromRole="enc_formulario" ToRole="enc_formulario_pregunta" />
         </EntityType>
         <EntityType Name="enc_resolucion_formulario">
           <Key>
@@ -514,8 +502,8 @@ advertencia 6002: La tabla o vista 'DB_EVALUACION_RRHH.dbo.vw_reporte003' no tie
           <Property Name="secuencia" Type="Int32" Nullable="false" />
           <Property Name="IdPregunta" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="re_ponderacion" Type="Double" />
-          <NavigationProperty Name="enc_formulario_pregunta" Relationship="Self.FK_enc_resolucion_formulario_det_enc_formulario_pregunta" FromRole="enc_resolucion_formulario_det" ToRole="enc_formulario_pregunta" />
           <NavigationProperty Name="enc_resolucion_formulario" Relationship="Self.FK_enc_resolucion_formulario_det_enc_resolucion_formulario" FromRole="enc_resolucion_formulario_det" ToRole="enc_resolucion_formulario" />
+          <NavigationProperty Name="enc_formulario_pregunta" Relationship="Model_general.FK_enc_resolucion_formulario_det_enc_formulario_pregunta" FromRole="enc_resolucion_formulario_det" ToRole="enc_formulario_pregunta" />
         </EntityType>
         <EntityType Name="rol_cargo">
           <Key>
@@ -593,20 +581,6 @@ advertencia 6002: La tabla o vista 'DB_EVALUACION_RRHH.dbo.vw_reporte003' no tie
           <Property Name="us_contrasenia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
         </EntityType>
-        <Association Name="FK_enc_formulario_pregunta_enc_formulario">
-          <End Role="enc_formulario" Type="Self.enc_formulario" Multiplicity="1" />
-          <End Role="enc_formulario_pregunta" Type="Self.enc_formulario_pregunta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="enc_formulario">
-              <PropertyRef Name="IdFormulario" />
-              <PropertyRef Name="IdPeriodo" />
-            </Principal>
-            <Dependent Role="enc_formulario_pregunta">
-              <PropertyRef Name="IdFormulario" />
-              <PropertyRef Name="IdPeriodo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_enc_formulario_tbl_periodo_evaluacion">
           <End Role="tbl_periodo_evaluacion" Type="Self.tbl_periodo_evaluacion" Multiplicity="1" />
           <End Role="enc_formulario" Type="Self.enc_formulario" Multiplicity="*" />
@@ -616,18 +590,6 @@ advertencia 6002: La tabla o vista 'DB_EVALUACION_RRHH.dbo.vw_reporte003' no tie
             </Principal>
             <Dependent Role="enc_formulario">
               <PropertyRef Name="IdPeriodo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_enc_resolucion_formulario_det_enc_formulario_pregunta">
-          <End Role="enc_formulario_pregunta" Type="Self.enc_formulario_pregunta" Multiplicity="1" />
-          <End Role="enc_resolucion_formulario_det" Type="Self.enc_resolucion_formulario_det" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="enc_formulario_pregunta">
-              <PropertyRef Name="IdPregunta" />
-            </Principal>
-            <Dependent Role="enc_resolucion_formulario_det">
-              <PropertyRef Name="IdPregunta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -681,7 +643,6 @@ advertencia 6002: La tabla o vista 'DB_EVALUACION_RRHH.dbo.vw_reporte003' no tie
         </Association>
         <EntityContainer Name="Entities_general" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="enc_formulario" EntityType="Self.enc_formulario" />
-          <EntitySet Name="enc_formulario_pregunta" EntityType="Self.enc_formulario_pregunta" />
           <EntitySet Name="enc_resolucion_formulario" EntityType="Self.enc_resolucion_formulario" />
           <EntitySet Name="enc_resolucion_formulario_det" EntityType="Self.enc_resolucion_formulario_det" />
           <EntitySet Name="rol_cargo" EntityType="Self.rol_cargo" />
@@ -690,17 +651,9 @@ advertencia 6002: La tabla o vista 'DB_EVALUACION_RRHH.dbo.vw_reporte003' no tie
           <EntitySet Name="tbl_parametros_correo" EntityType="Self.tbl_parametros_correo" />
           <EntitySet Name="tbl_periodo_evaluacion" EntityType="Self.tbl_periodo_evaluacion" />
           <EntitySet Name="tbl_usuario" EntityType="Self.tbl_usuario" />
-          <AssociationSet Name="FK_enc_formulario_pregunta_enc_formulario" Association="Self.FK_enc_formulario_pregunta_enc_formulario">
-            <End Role="enc_formulario" EntitySet="enc_formulario" />
-            <End Role="enc_formulario_pregunta" EntitySet="enc_formulario_pregunta" />
-          </AssociationSet>
           <AssociationSet Name="FK_enc_formulario_tbl_periodo_evaluacion" Association="Self.FK_enc_formulario_tbl_periodo_evaluacion">
             <End Role="tbl_periodo_evaluacion" EntitySet="tbl_periodo_evaluacion" />
             <End Role="enc_formulario" EntitySet="enc_formulario" />
-          </AssociationSet>
-          <AssociationSet Name="FK_enc_resolucion_formulario_det_enc_formulario_pregunta" Association="Self.FK_enc_resolucion_formulario_det_enc_formulario_pregunta">
-            <End Role="enc_formulario_pregunta" EntitySet="enc_formulario_pregunta" />
-            <End Role="enc_resolucion_formulario_det" EntitySet="enc_resolucion_formulario_det" />
           </AssociationSet>
           <AssociationSet Name="FK_enc_resolucion_formulario_det_enc_resolucion_formulario" Association="Self.FK_enc_resolucion_formulario_det_enc_resolucion_formulario">
             <End Role="enc_resolucion_formulario" EntitySet="enc_resolucion_formulario" />
@@ -745,6 +698,15 @@ advertencia 6002: La tabla o vista 'DB_EVALUACION_RRHH.dbo.vw_reporte003' no tie
           </AssociationSet>
           <EntitySet Name="vw_reporte002" EntityType="Model_general.vw_reporte002" />
           <EntitySet Name="vw_reporte003" EntityType="Model_general.vw_reporte003" />
+          <EntitySet Name="enc_formulario_pregunta" EntityType="Model_general.enc_formulario_pregunta" />
+          <AssociationSet Name="FK_enc_formulario_pregunta_enc_formulario" Association="Model_general.FK_enc_formulario_pregunta_enc_formulario">
+            <End Role="enc_formulario" EntitySet="enc_formulario" />
+            <End Role="enc_formulario_pregunta" EntitySet="enc_formulario_pregunta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enc_resolucion_formulario_det_enc_formulario_pregunta" Association="Model_general.FK_enc_resolucion_formulario_det_enc_formulario_pregunta">
+            <End Role="enc_formulario_pregunta" EntitySet="enc_formulario_pregunta" />
+            <End Role="enc_resolucion_formulario_det" EntitySet="enc_resolucion_formulario_det" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="rol_empleado_x_formulario">
           <Key>
@@ -903,7 +865,47 @@ advertencia 6002: La tabla o vista 'DB_EVALUACION_RRHH.dbo.vw_reporte003' no tie
           <Property Name="ef_calificacion" Type="Double" />
           <Property Name="ef_calificacion_ponderacion" Type="Double" />
         </EntityType>
-      </Schema>
+        <EntityType Name="enc_formulario_pregunta">
+          <Key>
+            <PropertyRef Name="IdPregunta" />
+          </Key>
+          <Property Name="IdPregunta" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="IdPeriodo" Type="Int32" Nullable="false" />
+          <Property Name="IdFormulario" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ep_descripcion" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <Property Name="ep_ponderacion" Type="Double" Nullable="false" />
+          <Property Name="ep_calificacion" Type="Double" />
+          <NavigationProperty Name="enc_formulario" Relationship="Model_general.FK_enc_formulario_pregunta_enc_formulario" FromRole="enc_formulario_pregunta" ToRole="enc_formulario" />
+          <NavigationProperty Name="enc_resolucion_formulario_det" Relationship="Model_general.FK_enc_resolucion_formulario_det_enc_formulario_pregunta" FromRole="enc_formulario_pregunta" ToRole="enc_resolucion_formulario_det" />
+        </EntityType>
+        <Association Name="FK_enc_formulario_pregunta_enc_formulario">
+          <End Type="Model_general.enc_formulario" Role="enc_formulario" Multiplicity="1" />
+          <End Type="Model_general.enc_formulario_pregunta" Role="enc_formulario_pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enc_formulario">
+              <PropertyRef Name="IdFormulario" />
+              <PropertyRef Name="IdPeriodo" />
+            </Principal>
+            <Dependent Role="enc_formulario_pregunta">
+              <PropertyRef Name="IdFormulario" />
+              <PropertyRef Name="IdPeriodo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enc_resolucion_formulario_det_enc_formulario_pregunta">
+          <End Type="Model_general.enc_formulario_pregunta" Role="enc_formulario_pregunta" Multiplicity="1" />
+          <End Type="Model_general.enc_resolucion_formulario_det" Role="enc_resolucion_formulario_det" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="enc_formulario_pregunta">
+              <PropertyRef Name="IdPregunta" />
+            </Principal>
+            <Dependent Role="enc_resolucion_formulario_det">
+              <PropertyRef Name="IdPregunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -917,18 +919,6 @@ advertencia 6002: La tabla o vista 'DB_EVALUACION_RRHH.dbo.vw_reporte003' no tie
                 <ScalarProperty Name="ef_codigo" ColumnName="ef_codigo" />
                 <ScalarProperty Name="ef_descripcion" ColumnName="ef_descripcion" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="enc_formulario_pregunta">
-            <EntityTypeMapping TypeName="Model_general.enc_formulario_pregunta">
-              <MappingFragment StoreEntitySet="enc_formulario_pregunta">
-                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
-                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
-                <ScalarProperty Name="IdFormulario" ColumnName="IdFormulario" />
-                <ScalarProperty Name="ep_descripcion" ColumnName="ep_descripcion" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="ep_ponderacion" ColumnName="ep_ponderacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1091,6 +1081,19 @@ advertencia 6002: La tabla o vista 'DB_EVALUACION_RRHH.dbo.vw_reporte003' no tie
                 <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
                 <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
                 <ScalarProperty Name="IdRow" ColumnName="IdRow" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enc_formulario_pregunta">
+            <EntityTypeMapping TypeName="Model_general.enc_formulario_pregunta">
+              <MappingFragment StoreEntitySet="enc_formulario_pregunta">
+                <ScalarProperty Name="ep_calificacion" ColumnName="ep_calificacion" />
+                <ScalarProperty Name="ep_ponderacion" ColumnName="ep_ponderacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="ep_descripcion" ColumnName="ep_descripcion" />
+                <ScalarProperty Name="IdFormulario" ColumnName="IdFormulario" />
+                <ScalarProperty Name="IdPeriodo" ColumnName="IdPeriodo" />
+                <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

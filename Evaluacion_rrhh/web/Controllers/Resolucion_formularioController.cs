@@ -25,10 +25,10 @@ namespace Web.Controllers
                 info_periodo = data_periodo.GetInfoPeriodoActivo();
                 if (info_periodo == null)
                     return RedirectToAction("Mensaje", "Resolucion_formulario", new { mensaje = "No existe periodo de evaluación activo" });
-
+                
                 if (reso_data.empleado_realizo_encuesta(IdEmpleado,info_periodo.IdPeriodo))
                     return RedirectToAction("Mensaje", "Resolucion_formulario", new { mensaje = "Evaluación realizada exitósamente, espere los resultados" });
-
+                    
                 info = reso_data.GetResolver_evaluacion(IdEmpleado, info_periodo.IdPeriodo);
 
                 if (info.lista_resoluccion.Count == 0)

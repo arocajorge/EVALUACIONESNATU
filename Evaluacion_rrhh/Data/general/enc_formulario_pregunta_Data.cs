@@ -68,7 +68,8 @@ namespace Data.general
                         ep_descripcion = info.ep_descripcion,
                         IdPeriodo = data_periodo.GetInfoPeriodoActivo().IdPeriodo,
                         ep_ponderacion = info.ep_ponderacion,
-                        estado = info.estado = true
+                        estado = info.estado = true,
+                        ep_calificacion = info.ep_calificacion
                     };
                     contex.enc_formulario_pregunta.Add(Entity);
                     contex.SaveChanges();
@@ -93,6 +94,7 @@ namespace Data.general
                         return false;
                     Entity.ep_descripcion = info.ep_descripcion;
                     Entity.ep_ponderacion = info.ep_ponderacion;
+                    Entity.ep_calificacion = info.ep_calificacion;
                     contex.SaveChanges();
                 }
                 return true;
@@ -140,7 +142,8 @@ namespace Data.general
                         estado = q.estado,
                         IdPeriodo = q.IdPeriodo,
                         IdPregunta = q.IdPregunta,
-                        ep_ponderacion = q.ep_ponderacion
+                        ep_ponderacion = q.ep_ponderacion,
+                        ep_calificacion = (float)q.ep_calificacion 
 
                     };
                 }
@@ -199,7 +202,8 @@ namespace Data.general
                                  estado = q.estado,
                                  IdPeriodo = q.IdPeriodo,
                                  IdPregunta = q.IdPregunta,
-                                 ep_ponderacion = q.ep_ponderacion
+                                 ep_ponderacion = q.ep_ponderacion,
+                                 ep_calificacion = (float)q.ep_calificacion
                              }).ToList();
                 }
                 return lista;

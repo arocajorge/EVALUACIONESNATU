@@ -25,6 +25,9 @@ namespace Info.general
         [Display(Name = "Ponderación")]
 
         public double ep_ponderacion { get; set; }
+        [Display(Name = "Calificación")]
+
+        public Nullable<double> ep_calificacion { get; set; }
 
     }
 }

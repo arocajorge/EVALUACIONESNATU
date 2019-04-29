@@ -17,8 +17,8 @@ namespace Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public enc_formulario()
         {
-            this.enc_formulario_pregunta = new HashSet<enc_formulario_pregunta>();
             this.rol_empleado_x_formulario = new HashSet<rol_empleado_x_formulario>();
+            this.enc_formulario_pregunta = new HashSet<enc_formulario_pregunta>();
         }
     
         public decimal IdFormulario { get; set; }
@@ -27,10 +27,10 @@ namespace Data
         public string ef_descripcion { get; set; }
         public bool estado { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<enc_formulario_pregunta> enc_formulario_pregunta { get; set; }
         public virtual tbl_periodo_evaluacion tbl_periodo_evaluacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<rol_empleado_x_formulario> rol_empleado_x_formulario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<enc_formulario_pregunta> enc_formulario_pregunta { get; set; }
     }
 }
