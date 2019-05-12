@@ -143,7 +143,7 @@ namespace Data.general
                         IdPeriodo = q.IdPeriodo,
                         IdPregunta = q.IdPregunta,
                         ep_ponderacion = q.ep_ponderacion,
-                        ep_calificacion = (float)q.ep_calificacion 
+                        ep_calificacion = q.ep_calificacion 
 
                     };
                 }
@@ -203,7 +203,7 @@ namespace Data.general
                                  IdPeriodo = q.IdPeriodo,
                                  IdPregunta = q.IdPregunta,
                                  ep_ponderacion = q.ep_ponderacion,
-                                 ep_calificacion = (float)q.ep_calificacion
+                                 ep_calificacion = q.ep_calificacion
                              }).ToList();
                 }
                 return lista;
