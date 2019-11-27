@@ -223,6 +223,11 @@ namespace Data.general
                     infocorreo.Correo_enviado = true;
                     infocorreo.Observacion = "Notificación enviada ha " + item.re_apellidos + " " + item.re_nombres;
                     entity.rol_empleado_x_correo_x_periodo.Add(infocorreo);
+                    var empleado = entity.rol_empleado.Where(q => q.IdEmpleado == item.IdEmpleado).FirstOrDefault();
+                    if (empleado != null)
+                    {
+                        empleado.FechaUltCorreo = DateTime.Now;
+                    }
 
                     entity.SaveChanges();
                 }

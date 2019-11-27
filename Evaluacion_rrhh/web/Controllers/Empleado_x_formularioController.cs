@@ -45,6 +45,9 @@ namespace web.Controllers
             try
             {
                 List<rol_empleado_x_formulario_Info> list = new List<rol_empleado_x_formulario_Info>();
+                info_periodo = data_periodo.GetInfoPeriodoActivo();
+                if (info_periodo == null)
+                    return RedirectToAction("Index", "Periodo_evaluacion");
                 if (IdEmpleado == 0)
                     return RedirectToAction("Index");
                 ViewBag.IdEmpleado = IdEmpleado;
@@ -148,7 +151,7 @@ namespace web.Controllers
                 List<rol_empleado_x_formulario_Info> lst_det = new List<rol_empleado_x_formulario_Info>();
                 info_periodo = data_periodo.GetInfoPeriodoActivo();
                 if (info_periodo == null)
-                    return RedirectToAction("Index", "Periodo_evaluacion");
+                    info_periodo = new tbl_periodo_evaluacion_Info { IdPeriodo = 0 };
 
                 lst_det = emp_for_data.GetListEmp_Asignados(IdEmpleado, info_periodo.IdPeriodo);
                 rol_empleado_Info infoE = empleado_data.GetInfo(IdEmpleado);

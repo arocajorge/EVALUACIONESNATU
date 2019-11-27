@@ -17,10 +17,10 @@ namespace Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public rol_empleado()
         {
+            this.enc_resolucion_calificacion = new HashSet<enc_resolucion_calificacion>();
             this.enc_resolucion_formulario = new HashSet<enc_resolucion_formulario>();
             this.rol_empleado_x_formulario = new HashSet<rol_empleado_x_formulario>();
             this.rol_empleado_x_formulario1 = new HashSet<rol_empleado_x_formulario>();
-            this.enc_resolucion_calificacion = new HashSet<enc_resolucion_calificacion>();
         }
     
         public decimal IdEmpleado { get; set; }
@@ -33,7 +33,10 @@ namespace Data
         public string re_direccion { get; set; }
         public int IdCargo { get; set; }
         public bool estado { get; set; }
+        public Nullable<System.DateTime> FechaUltCorreo { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<enc_resolucion_calificacion> enc_resolucion_calificacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<enc_resolucion_formulario> enc_resolucion_formulario { get; set; }
         public virtual rol_cargo rol_cargo { get; set; }
@@ -41,7 +44,5 @@ namespace Data
         public virtual ICollection<rol_empleado_x_formulario> rol_empleado_x_formulario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<rol_empleado_x_formulario> rol_empleado_x_formulario1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<enc_resolucion_calificacion> enc_resolucion_calificacion { get; set; }
     }
 }

@@ -38,6 +38,9 @@ namespace Info.general
 
         public int IdCargo { get; set; }
         public bool estado { get; set; }
+        [Display(Name = "Ult. correo")]
+        public Nullable<System.DateTime> FechaUltCorreo { get; set; }
+
         public string formulario { get; set; }
         public decimal IdFormulario { get; set; }
         public decimal IdEmpleado_eva { get; set; }
@@ -47,7 +50,7 @@ namespace Info.general
         public DateTime fechaF { get; set; }
         public int num_empleado_asignados { get; set; }
         public int num_emo_lo_evaluan { get; set; }
-
+        
         public double? sum_ponderacion { get; set; }
         public string NombreCompleato { get; set; }
 

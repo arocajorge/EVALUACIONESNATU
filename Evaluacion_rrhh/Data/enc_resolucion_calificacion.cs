@@ -20,7 +20,7 @@ namespace Data
         public bool factor_cumplimiento { get; set; }
         public double calificacion_final { get; set; }
     
-        public virtual rol_empleado rol_empleado { get; set; }
         public virtual tbl_periodo_evaluacion tbl_periodo_evaluacion { get; set; }
+        public virtual rol_empleado rol_empleado { get; set; }
     }
 }

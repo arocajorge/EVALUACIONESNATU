@@ -67,7 +67,8 @@ namespace Data.general
                                     re_direccion = q.re_direccion,
                                     IdCargo = q.IdCargo,
                                     estado = q.estado,
-                                    NombreCompleato=q.re_apellidos+" "+q.re_nombres
+                                    NombreCompleato=q.re_apellidos+" "+q.re_nombres,
+                                    FechaUltCorreo = q.FechaUltCorreo
                                     
                                 }
                               ).ToList();

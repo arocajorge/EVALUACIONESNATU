@@ -31,7 +31,6 @@ namespace Data
         public virtual DbSet<enc_resolucion_formulario> enc_resolucion_formulario { get; set; }
         public virtual DbSet<enc_resolucion_formulario_det> enc_resolucion_formulario_det { get; set; }
         public virtual DbSet<rol_cargo> rol_cargo { get; set; }
-        public virtual DbSet<rol_empleado> rol_empleado { get; set; }
         public virtual DbSet<rol_empleado_x_correo_x_periodo> rol_empleado_x_correo_x_periodo { get; set; }
         public virtual DbSet<tbl_parametros_correo> tbl_parametros_correo { get; set; }
         public virtual DbSet<tbl_periodo_evaluacion> tbl_periodo_evaluacion { get; set; }
@@ -41,6 +40,7 @@ namespace Data
         public virtual DbSet<vw_reporte002> vw_reporte002 { get; set; }
         public virtual DbSet<vw_reporte003> vw_reporte003 { get; set; }
         public virtual DbSet<enc_formulario_pregunta> enc_formulario_pregunta { get; set; }
+        public virtual DbSet<rol_empleado> rol_empleado { get; set; }
     
         public virtual int sp_cerrar_periodo(Nullable<int> idPeriodo)
         {

@@ -20,6 +20,7 @@
         settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
         settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
         settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 10;
+        settings.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
 
         settings.Columns.Add(c =>
         {
@@ -41,14 +42,15 @@
             c.Settings.AllowSort = DefaultBoolean.False;
             c.Width = 70;
         });
-        settings.Columns.Add("re_codigo").Width = Unit.Percentage(10);
-        settings.Columns.Add("re_apellidos");
-        settings.Columns.Add("re_nombres");
-        settings.Columns.Add("re_cedula");
-        settings.Columns.Add("re_correo");
-        settings.Columns.Add("re_telefonos");
-        settings.Columns.Add("re_direccion");
-
+        settings.Columns.Add("re_codigo").Width = Unit.Percentage(5);
+        settings.Columns.Add("re_apellidos").Width = Unit.Percentage(20);
+        settings.Columns.Add("re_nombres").Width = Unit.Percentage(20);
+        settings.Columns.Add("re_cedula").Width = Unit.Percentage(10);
+        settings.Columns.Add("re_correo").Width = Unit.Percentage(10);
+        settings.Columns.Add("re_telefonos").Width = Unit.Percentage(10);
+        settings.Columns.Add("re_direccion").Width = Unit.Percentage(20);
+        settings.Columns.Add("FechaUltCorreo").Width = Unit.Percentage(20);
+        
         settings.Columns.Add(c =>
         {
             c.Caption = "#";

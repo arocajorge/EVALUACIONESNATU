@@ -26,57 +26,57 @@
            i.SettingsItemHelpTexts.Position = HelpTextPosition.Bottom;
        });
 
-           var grid = Html.DevExpress().GridView(settingsgrid =>
-           {
-               settingsgrid.Name = "EnviarCorreoPartial";
+       var grid = Html.DevExpress().GridView(settingsgrid =>
+       {
+           settingsgrid.Name = "EnviarCorreoPartial";
 
+           settingsgrid.CallbackRouteValues = new { Controller = "Empleado_x_correo_x_periodo", Action = "EnviarCorreoPartial" };
+           settingsgrid.KeyFieldName = "IdEmpleado";
+           settingsgrid.Width = Unit.Percentage(100);
+           settingsgrid.SettingsPager.Visible = true;
+           settingsgrid.Settings.ShowGroupPanel = true;
+           settingsgrid.Settings.ShowFilterRow = true;
+           settingsgrid.SettingsBehavior.AllowSelectByRowClick = true;
 
-               settingsgrid.KeyFieldName = "IdEmpleado";
-               settingsgrid.Width = Unit.Percentage(100);
-               settingsgrid.SettingsPager.Visible = true;
-               settingsgrid.Settings.ShowGroupPanel = true;
-               settingsgrid.Settings.ShowFilterRow = true;
-               settingsgrid.SettingsBehavior.AllowSelectByRowClick = true;
+           settingsgrid.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+           settingsgrid.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+           settingsgrid.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+           settingsgrid.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+           settingsgrid.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
 
-               settingsgrid.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
-               settingsgrid.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
-               settingsgrid.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
-               settingsgrid.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
-               settingsgrid.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+           settingsgrid.Columns.Add("re_codigo").Width = Unit.Percentage(5);
+           settingsgrid.Columns.Add("re_cedula").Width = Unit.Percentage(5);
+           settingsgrid.Columns.Add("re_nombres");
+           settingsgrid.Columns.Add("re_apellidos");
+           settingsgrid.Columns.Add("re_correo");
+           settingsgrid.Columns.Add("Cargo");
 
-               settingsgrid.Columns.Add("re_codigo").Width = Unit.Percentage(5);
-               settingsgrid.Columns.Add("re_cedula").Width = Unit.Percentage(5);
-               settingsgrid.Columns.Add("re_nombres");
-               settingsgrid.Columns.Add("re_apellidos");
-               settingsgrid.Columns.Add("re_correo");
-               settingsgrid.Columns.Add("Cargo");
-
-           });
+       });
        @grid.Bind(Model).GetHtml();
 
-            groupItem.Items.Add(i =>
-            {
-                i.Caption = "";
-                i.Paddings.PaddingTop = 24;
-                i.SetNestedContent(() =>
-                {
-                    Html.DevExpress().Button(b =>
-                    {
-                        b.Name = "UpdateBtn";
-                        b.Text = "Enviar";
-                        b.ControlStyle.CssClass = "editFormButton";
-                        b.UseSubmitBehavior = true;
-                        b.ClientSideEvents.Click = "function(s, e){ document.location='" + DevExpressHelper.GetUrl(new { Controller = "Empleado_x_correo_x_periodo", Action = "Index" }) + "'; }";
-                    }).Render();
-                    Html.DevExpress().Button(b =>
-                    {
-                        b.Name = "CancelBtn";
-                        b.Text = "Cancelar";
-                        b.Style.Add("margin-left", "4px");
-                        b.ControlStyle.CssClass = "editFormButton";
-                        b.ClientSideEvents.Click = "function(s, e){ document.location='" + DevExpressHelper.GetUrl(new { Controller = "Home", Action = "Index" }) + "'; }";
-                    }).Render();
-                });
-            });
+       groupItem.Items.Add(i =>
+       {
+           i.Caption = "";
+           i.Paddings.PaddingTop = 24;
+           i.SetNestedContent(() =>
+           {
+               Html.DevExpress().Button(b =>
+               {
+                   b.Name = "UpdateBtn";
+                   b.Text = "Enviar";
+                   b.ControlStyle.CssClass = "editFormButton";
+                   b.UseSubmitBehavior = true;
+                   b.ClientSideEvents.Click = "function(s, e){ document.location='" + DevExpressHelper.GetUrl(new { Controller = "Empleado_x_correo_x_periodo", Action = "Index" }) + "'; }";
+               }).Render();
+               Html.DevExpress().Button(b =>
+               {
+                   b.Name = "CancelBtn";
+                   b.Text = "Cancelar";
+                   b.Style.Add("margin-left", "4px");
+                   b.ControlStyle.CssClass = "editFormButton";
+                   b.ClientSideEvents.Click = "function(s, e){ document.location='" + DevExpressHelper.GetUrl(new { Controller = "Home", Action = "Index" }) + "'; }";
+               }).Render();
+           });
+       });
    }).GetHtml()
 }

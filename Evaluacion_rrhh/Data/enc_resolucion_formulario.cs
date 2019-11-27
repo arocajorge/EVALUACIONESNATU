@@ -28,7 +28,7 @@ namespace Data
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<enc_resolucion_formulario_det> enc_resolucion_formulario_det { get; set; }
-        public virtual rol_empleado rol_empleado { get; set; }
         public virtual tbl_periodo_evaluacion tbl_periodo_evaluacion { get; set; }
+        public virtual rol_empleado rol_empleado { get; set; }
     }
 }
