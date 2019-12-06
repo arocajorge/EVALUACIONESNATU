@@ -438,6 +438,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Views\Reporte\Evalauacion_Rpt003.resx">
       <DependentUpon>Evalauacion_Rpt003.cs</DependentUpon>
     </EmbeddedResource>

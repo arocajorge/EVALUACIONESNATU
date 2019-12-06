@@ -19,9 +19,22 @@ namespace web.Views.Reporte
         {
             try
             {
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void Evalauacion_Rpt001_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            try
+            {
                 List<tbl_reporte001_Info> lista = new List<tbl_reporte001_Info>();
                 tbl_reporte001_Data oda = new tbl_reporte001_Data();
-                lista = oda.GetRpt001((IdPeriodo.Value)==null?0:Convert.ToInt32(IdPeriodo.Value));
+                lista = oda.GetRpt001((IdPeriodo.Value) == null ? 0 : Convert.ToInt32(IdPeriodo.Value));
                 DataSource = lista;
             }
             catch (Exception)
