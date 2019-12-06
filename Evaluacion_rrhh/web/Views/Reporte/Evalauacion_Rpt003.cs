@@ -17,11 +17,16 @@ namespace web.Views.Reporte
 
         private void TopMargin_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
         {
+            
+        }
+
+        private void Evalauacion_Rpt003_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
             try
             {
                 List<tbl_reporte003_Info> lista = new List<tbl_reporte003_Info>();
                 tbl_reporte003_Data oda = new tbl_reporte003_Data();
-                lista = oda.GetList((IdPeriodo.Value)==null?0:Convert.ToInt32(IdPeriodo.Value), (IdEmpleado.Value) == null ? 0 : Convert.ToInt32(IdEmpleado.Value), (Idempleado_evaluado.Value) == null ? 0 : Convert.ToDecimal(Idempleado_evaluado.Value));
+                lista = oda.GetList((IdPeriodo.Value) == null ? 0 : Convert.ToInt32(IdPeriodo.Value), (IdEmpleado.Value) == null ? 0 : Convert.ToInt32(IdEmpleado.Value), (Idempleado_evaluado.Value) == null ? 0 : Convert.ToDecimal(Idempleado_evaluado.Value));
                 DataSource = lista;
             }
             catch (Exception)
